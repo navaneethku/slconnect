@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.slconnect">
+    package="com.yourcompany.slconnect">
    <application
         android:label="slconnect"
         android:name="${applicationName}"
