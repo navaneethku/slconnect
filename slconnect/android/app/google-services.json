@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1042674780147",
+    "project_id": "slconnect3",
+    "storage_bucket": "slconnect3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042674780147:android:2f191cf4af7eb846ab3486",
+        "android_client_info": {
+          "package_name": "com.yourcompany.slconnect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1042674780147-a1rudkjpasv3j15aheik109pjl8ci21a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yourcompany.slconnect",
+            "certificate_hash": "7c56fff3f3fa55f05ea68b53cfd042aadafe4aa7"
+          }
+        },
+        {
+          "client_id": "1042674780147-0ad4shr68d8vq32rqhfqtkl44fk58grf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB19Cu4ObXXByk1JoLvNjaLafmk8JnJxUI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1042674780147-0ad4shr68d8vq32rqhfqtkl44fk58grf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
