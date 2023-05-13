@@ -1,49 +1,21 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
+// import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:slconnect/app/routes/app_pages.dart';
+import 'package:slconnect/app/widgets/BottomNavigation.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    // const List<Widget> _pages = <Widget>[
-    //   Icon(
-    //     Icons.call,
-    //     size: 150,
-    //   ),
-    //   Icon(
-    //     Icons.camera,
-    //     size: 150,
-    //   ),
-    //   Icon(
-    //     Icons.chat,
-    //     size: 150,
-    //   ),
-    // ];
     final double screenHeight = MediaQuery.of(context).size.height;
     return GetBuilder<HomeController>(
         builder: (_) => Scaffold(
-            bottomNavigationBar: BottomNavigationBar(
-              currentIndex: controller.selectedIndex,
-              onTap: controller.onItemTapped,
-              items: const <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: 'Home',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.bookmark),
-                  label: 'My Bookings',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.person),
-                  label: 'Profile',
-                ),
-              ],
+            bottomNavigationBar: const BottomNavigation(
+              currentIndex: 0,
             ),
             body: SingleChildScrollView(
               reverse: true,
@@ -99,7 +71,7 @@ class HomeView extends GetView<HomeController> {
                               prefs.remove('phone');
                               Get.offAndToNamed(Routes.LOGIN);
                             },
-                            child: Text("Don't Click"))
+                            child: const Text("Don't Click"))
                       ],
                     ),
                   )),

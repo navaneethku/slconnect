@@ -16,6 +16,8 @@ dependencies:
   flutter: 
     sdk: flutter
   shared_preferences: ^2.1.1
+  google_fonts: ^4.0.4
+  iconify_flutter: ^0.0.5
 
 dev_dependencies: 
   flutter_lints: 2.0.1

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../widgets/BottomNavigation.dart';
 import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
@@ -9,6 +10,9 @@ class ProfileView extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+    bottomNavigationBar: const BottomNavigation(
+              currentIndex: 2,
+            ),
       appBar: AppBar(
         title: const Text('ProfileView'),
         centerTitle: true,
