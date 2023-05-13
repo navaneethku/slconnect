@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:slconnect/app/routes/app_pages.dart';
 import '../controllers/login_controller.dart';
 
@@ -106,8 +107,11 @@ class LoginView extends GetView<LoginController> {
                         verificationCompleted:
                             (PhoneAuthCredential credential) {},
                         verificationFailed: (FirebaseAuthException e) {},
-                        codeSent: (String verificationId, int? resendToken) {
+                        codeSent: (String verificationId, int? resendToken) async {
                           controller.verifId = verificationId;
+                          SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                            prefs.setString('phone', controller.phone);
                           Get.toNamed(Routes.OTP);
                         },
                         codeAutoRetrievalTimeout: (String verificationId) {},

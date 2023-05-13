@@ -38,34 +38,34 @@ class LoginController extends GetxController {
 
     FirebaseAuth auth = FirebaseAuth.instance;
 
-    await auth.verifyPhoneNumber(
-      phoneNumber: '+91 80 7875 6904',
-      verificationCompleted: (PhoneAuthCredential credential) async {
-        // ANDROID ONLY!
+    // await auth.verifyPhoneNumber(
+    //   phoneNumber: '+91 80 7875 6904',
+    //   verificationCompleted: (PhoneAuthCredential credential) async {
+    //     // ANDROID ONLY!
 
-        // Sign the user in (or link) with the auto-generated credential
-        await auth.signInWithCredential(credential);
-      },
-      verificationFailed: (FirebaseAuthException e) {
-        if (e.code == 'invalid-phone-number') {
-          print('The provided phone number is not valid.');
-        }
-      },
-      codeSent: (String verificationId, int? resendToken) async {
-        // Update the UI - wait for the user to enter the SMS code
-        String smsCode = '1000';
+    //     // Sign the user in (or link) with the auto-generated credential
+    //     await auth.signInWithCredential(credential);
+    //   },
+    //   verificationFailed: (FirebaseAuthException e) {
+    //     if (e.code == 'invalid-phone-number') {
+    //       print('The provided phone number is not valid.');
+    //     }
+    //   },
+    //   codeSent: (String verificationId, int? resendToken) async {
+    //     // Update the UI - wait for the user to enter the SMS code
+    //     String smsCode = '1000';
 
-        // Create a PhoneAuthCredential with the code
-        PhoneAuthCredential credential = PhoneAuthProvider.credential(
-            verificationId: verificationId, smsCode: smsCode);
+    //     // Create a PhoneAuthCredential with the code
+    //     PhoneAuthCredential credential = PhoneAuthProvider.credential(
+    //         verificationId: verificationId, smsCode: smsCode);
 
-        // Sign the user in (or link) with the credential
-        await auth.signInWithCredential(credential);
-      },
-      timeout: const Duration(seconds: 60),
-      codeAutoRetrievalTimeout: (String verificationId) {
-        // Auto-resolution timed out...
-      },
-    );
+    //     // Sign the user in (or link) with the credential
+    //     await auth.signInWithCredential(credential);
+    //   },
+    //   timeout: const Duration(seconds: 60),
+    //   codeAutoRetrievalTimeout: (String verificationId) {
+    //     // Auto-resolution timed out...
+    //   },
+    // );
   }
 }

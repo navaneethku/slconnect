@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 
-class HomeController extends GetxController {
-  //TODO: Implement HomeController
-  int selectedIndex = 0;
+class BookingController extends GetxController {
+  //TODO: Implement BookingController
+
   final count = 0.obs;
   @override
   void onInit() {
@@ -20,9 +20,4 @@ class HomeController extends GetxController {
   }
 
   void increment() => count.value++;
-
-  void onItemTapped(int index) {
-    selectedIndex = index;
-    update();
-  }
 }

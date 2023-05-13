@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:slconnect/app/routes/app_pages.dart';
 
 import '../controllers/otp_controller.dart';
@@ -114,6 +115,7 @@ class OtpView extends GetView<OtpController> {
 
                         // Sign the user in (or link) with the credential
                         await controller.auth.signInWithCredential(credential);
+                        
                         Get.toNamed(Routes.HOME);
                       } catch (e) {
                         print("Wrong OTP Entered");
