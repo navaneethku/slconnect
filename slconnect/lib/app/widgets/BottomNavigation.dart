@@ -17,7 +17,7 @@ class BottomNavigation extends StatelessWidget {
         color: primary,
       ),
       selectedLabelStyle: GoogleFonts.poppins(
-        fontSize: 18,
+        fontSize: 12,
         fontWeight: FontWeight.w600,
         color: secondary,
       ),

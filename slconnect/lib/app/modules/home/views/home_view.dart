@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 // import 'package:lottie/lottie.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 import 'package:slconnect/app/routes/app_pages.dart';
 import 'package:slconnect/app/widgets/BottomNavigation.dart';
+import 'package:slconnect/consts/colors.dart';
+import 'package:slconnect/consts/common_styles.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -17,61 +20,77 @@ class HomeView extends GetView<HomeController> {
             bottomNavigationBar: const BottomNavigation(
               currentIndex: 0,
             ),
-            body: SingleChildScrollView(
-              reverse: true,
-              physics: const BouncingScrollPhysics(),
+            appBar: AppBar(
+                backgroundColor: secondary,
+                title: const Text(
+                  "Home",
+                  style: largePrimaryBold,
+                ),
+                centerTitle: true,
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: GestureDetector(
+                        onTap: () => Get.toNamed(Routes.NOTIFICATION),
+                        child: const Icon(
+                          Icons.notifications_active,
+                          color: primary,
+                        )),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: GestureDetector(
+                        onTap: () => Get.toNamed(Routes.SETTINGS),
+                        child: const Icon(Icons.settings, color: primary)),
+                  )
+                ]),
+            body: SafeArea(
               child: Container(
                   height: screenHeight,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage("assets/images/background.gif"),
                           fit: BoxFit.cover)),
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
+                    padding: const EdgeInsets.fromLTRB(30, 30, 30, 30),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Home Page",
-                            style: TextStyle(
-                              fontSize: 24,
-                            )),
-                        // Lottie.asset("assets/lottie/signuplady.json"),
-                        Text("Signed In Successfully",
-                            style: TextStyle(
-                              fontSize: 24,
-                            )),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30),
-                          child: TextField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                  color: Theme.of(context).colorScheme.primary,
-                                )),
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                        width: 2)),
-                                prefixIcon: Icon(Icons.call),
-                                labelText: "Phone Number",
-                                floatingLabelStyle: TextStyle(
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                    backgroundColor:
-                                        Theme.of(context).cardColor)),
+                        Expanded(
+                          flex: 1,
+                          child: const Text(
+                            "Select Category",
+                            style: largePrimaryBold,
                           ),
                         ),
-                        ElevatedButton(
-                            onPressed: () async {
-                              SharedPreferences prefs =
-                                  await SharedPreferences.getInstance();
-                              prefs.remove('phone');
-                              Get.offAndToNamed(Routes.LOGIN);
-                            },
-                            child: const Text("Don't Click"))
+                        Expanded(
+                          flex: 7,
+                          child: GridView.builder(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                      mainAxisSpacing: 1,
+                                      crossAxisSpacing: 1,
+                                      childAspectRatio: 0.95,
+                                      crossAxisCount: 2),
+                              itemCount: controller.skillsList.length - 1,
+                              //DECREASED COUNT FOR AESTHETICS
+                              itemBuilder: (BuildContext context, int index) {
+                                Color bgColor =
+                                    index % 3 == 0 ? primary : secondary;
+
+                                return Card(
+                                  color: bgColor,
+                                  child: Center(
+                                    child: Text(
+                                      controller.skillsList[index],
+                                      style: mediumWhite,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                );
+                              }),
+                        ),
                       ],
                     ),
                   )),

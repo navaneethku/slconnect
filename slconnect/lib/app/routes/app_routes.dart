@@ -8,6 +8,8 @@ abstract class Routes {
   static const OTP = _Paths.OTP;
   static const BOOKING = _Paths.BOOKING;
   static const PROFILE = _Paths.PROFILE;
+  static const NOTIFICATION = _Paths.NOTIFICATION;
+  static const SETTINGS = _Paths.SETTINGS;
 }
 
 abstract class _Paths {
@@ -17,4 +19,6 @@ abstract class _Paths {
   static const OTP = '/otp';
   static const BOOKING = '/booking';
   static const PROFILE = '/profile';
+  static const NOTIFICATION = '/notification';
+  static const SETTINGS = '/settings';
 }
