@@ -14,4 +14,22 @@ const TextStyle mediumPrimary = TextStyle(color: primary, fontSize: 18);
 const TextStyle mediumPrimaryBold =
     TextStyle(color: primary, fontSize: 18, fontWeight: FontWeight.w600);
 const TextStyle largePrimary = TextStyle(color: primary, fontSize: 24);
-const TextStyle largePrimaryBold = TextStyle(color: primary, fontSize: 24, fontWeight: FontWeight.w600);
+const TextStyle largeBlack = TextStyle(color: primary, fontSize: 24);
+const TextStyle largePrimaryBold =
+    TextStyle(color: primary, fontSize: 24, fontWeight: FontWeight.w600);
+    const TextStyle largePrimaryBlack =
+    TextStyle(color: primary, fontSize: 24, fontWeight: FontWeight.w600);
+const textStyle = TextStyle(
+  color: primary,
+  fontSize: 22.0,
+  letterSpacing: 1,
+  fontWeight: FontWeight.bold,
+);
+
+final inputDecoration = InputDecoration(
+    border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.0),
+        borderSide: const BorderSide(
+          color: Colors.redAccent,
+          width: 2,
+        )));

@@ -4,6 +4,10 @@ import '../modules/booking/bindings/booking_binding.dart';
 import '../modules/booking/views/booking_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/home_laborer/bindings/home_laborer_binding.dart';
+import '../modules/home_laborer/views/home_laborer_view.dart';
+import '../modules/landing/bindings/landing_binding.dart';
+import '../modules/landing/views/landing_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/notification/bindings/notification_binding.dart';
@@ -20,7 +24,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
   static const ISNOTLOGGEDIN = Routes.LOGIN;
-  static const ISLOGGEDIN = Routes.HOME;
+  static const ISLOGGEDIN = Routes.LANDING;
 
   static final routes = [
     GetPage(
@@ -57,6 +61,16 @@ class AppPages {
       name: _Paths.SETTINGS,
       page: () => const SettingsView(),
       binding: SettingsBinding(),
+    ),
+    GetPage(
+      name: _Paths.LANDING,
+      page: () => const LandingView(),
+      binding: LandingBinding(),
+    ),
+    GetPage(
+      name: _Paths.HOME_LABORER,
+      page: () => const HomeLaborerView(),
+      binding: HomeLaborerBinding(),
     ),
   ];
 }

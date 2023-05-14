@@ -117,7 +117,7 @@ class OtpView extends GetView<OtpController> {
                         // Sign the user in (or link) with the credential
                         await controller.auth.signInWithCredential(credential);
 
-                        Get.toNamed(Routes.HOME);
+                        Get.toNamed(Routes.LANDING);
                       } catch (e) {
                         print("Wrong OTP Entered");
                       }
