@@ -52,7 +52,6 @@ class BottomNavigation extends StatelessWidget {
             break;
           case 2:
             Get.toNamed(Routes.PROFILE);
-            break;
         }
       },
     );

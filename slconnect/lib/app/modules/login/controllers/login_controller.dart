@@ -21,7 +21,7 @@ class LoginController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
+  final formKey = GlobalKey<FormState>();
   void increment() => count.value++;
   String verifId = "";
   String phone = "";
@@ -67,5 +67,12 @@ class LoginController extends GetxController {
     //     // Auto-resolution timed out...
     //   },
     // );
+  }
+
+  void showOTPSnackBar() {
+    Get.showSnackbar(const GetSnackBar(
+      duration: Duration(seconds: 4),
+      message: 'Please wait for the OTP to arrive',
+    ));
   }
 }

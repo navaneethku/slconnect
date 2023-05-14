@@ -14,5 +14,4 @@ const TextStyle mediumPrimary = TextStyle(color: primary, fontSize: 18);
 const TextStyle mediumPrimaryBold =
     TextStyle(color: primary, fontSize: 18, fontWeight: FontWeight.w600);
 const TextStyle largePrimary = TextStyle(color: primary, fontSize: 24);
-const TextStyle largePrimaryBold =
-    TextStyle(color: primary, fontSize: 24, fontWeight: FontWeight.w600);
+const TextStyle largePrimaryBold = TextStyle(color: primary, fontSize: 24, fontWeight: FontWeight.w600);

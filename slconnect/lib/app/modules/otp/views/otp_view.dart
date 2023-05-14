@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:slconnect/app/routes/app_pages.dart';
+import 'package:slconnect/consts/colors.dart';
 
 import '../controllers/otp_controller.dart';
 
@@ -45,7 +46,7 @@ class OtpView extends GetView<OtpController> {
             Navigator.pop(context);
           },
           icon: Icon(
-            Icons.arrow_back_ios_rounded,
+            Icons.arrow_back,
             color: Colors.black,
           ),
         ),
@@ -59,9 +60,9 @@ class OtpView extends GetView<OtpController> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                'assets/images/img1.png',
-                width: 150,
-                height: 150,
+                'assets/images/pin_background.png',
+                width: 250,
+                height: 250,
               ),
               SizedBox(
                 height: 25,
@@ -103,7 +104,7 @@ class OtpView extends GetView<OtpController> {
                 height: 45,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: Colors.green.shade600,
+                        backgroundColor: Theme.of(context).cardColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
                     onPressed: () async {
@@ -115,7 +116,7 @@ class OtpView extends GetView<OtpController> {
 
                         // Sign the user in (or link) with the credential
                         await controller.auth.signInWithCredential(credential);
-                        
+
                         Get.toNamed(Routes.HOME);
                       } catch (e) {
                         print("Wrong OTP Entered");
@@ -123,7 +124,7 @@ class OtpView extends GetView<OtpController> {
                     },
                     child: Text(
                       "Verify Phone Number",
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: primary),
                     )),
               ),
               Row(
