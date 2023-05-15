@@ -21,7 +21,7 @@ class LoginController extends GetxController {
   void onClose() {
     super.onClose();
   }
-  final formKey = GlobalKey<FormState>();
+  final loginFormKey = GlobalKey<FormState>();
   void increment() => count.value++;
   String verifId = "";
   String phone = "";

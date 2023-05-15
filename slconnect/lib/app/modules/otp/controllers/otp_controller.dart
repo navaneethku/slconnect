@@ -4,7 +4,7 @@ import 'package:slconnect/app/modules/login/controllers/login_controller.dart';
 
 class OtpController extends GetxController {
   //TODO: Implement OtpController
-  String verifId = Get.find<LoginController>().verifId;
+  String verifId = Get.arguments;
   final count = 0.obs;
   String code = "";
   final FirebaseAuth auth = FirebaseAuth.instance;

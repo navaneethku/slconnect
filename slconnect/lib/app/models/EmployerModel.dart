@@ -22,7 +22,7 @@ class EmployerModel {
       'age': age,
       'location': location,
       'name': name,
-      'roll': role,
+      'role': role,
       'phoneNumber':phoneNumber,
     };
   }

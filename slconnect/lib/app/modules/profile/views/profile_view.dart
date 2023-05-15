@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:slconnect/app/models/EmployerModel.dart';
+import 'package:slconnect/app/routes/app_pages.dart';
 import 'package:slconnect/consts/colors.dart';
 import 'package:slconnect/consts/common_styles.dart';
 
@@ -19,10 +20,15 @@ class ProfileView extends GetView<ProfileController> {
         ),
         appBar: AppBar(
           elevation: 1,
-          title: const Text(
-            'Employer Profile',
-            style: largePrimary,
-          ),
+          title: controller.isLaborer
+              ? const Text(
+                  "Laborer Profile",
+                  style: largePrimaryBold,
+                )
+              : const Text(
+                  'Employer Profile',
+                  style: largePrimaryBold,
+                ),
           centerTitle: true,
         ),
         body: SingleChildScrollView(
@@ -54,6 +60,8 @@ class ProfileView extends GetView<ProfileController> {
                               controller: controller.nameController,
                               keyboardType: TextInputType.text,
                               decoration: inputDecoration.copyWith(
+                                  fillColor: Colors.white,
+                                  focusColor: Colors.white,
                                   hintText: "Enter your Name"),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -92,23 +100,6 @@ class ProfileView extends GetView<ProfileController> {
                                 return null;
                               },
                             ),
-                            const SizedBox(height: 10.0),
-                            const Text('Phone Number', style: textStyle),
-                            const SizedBox(height: 10.0),
-                            TextFormField(
-                              controller: controller.phoneController,
-                              keyboardType: TextInputType.number,
-                              decoration: inputDecoration.copyWith(
-                                  hintText: "Enter your Phone Number"),
-                              validator: (value) {
-                                if (value == null ||
-                                    value.isEmpty ||
-                                    value.length != 10) {
-                                  return 'Please enter valid 10 digit phone number';
-                                }
-                                return null;
-                              },
-                            ),
                             const SizedBox(height: 20.0),
                             !controller.isLoading
                                 ? Center(
@@ -139,12 +130,14 @@ class ProfileView extends GetView<ProfileController> {
                                               location: controller
                                                   .locationController.text,
                                               role: tempRole ?? "",
-                                              phoneNumber: controller
-                                                  .phoneController.text,
+                                              phoneNumber:
+                                                  controller.phoneNumber,
                                             );
                                             controller.setLoading();
                                             await service.addEmployer(employee);
                                             controller.setLoadingFalse();
+                                            //TODO GO TO Routes.HOME if role == employer, else Routes.HOME_LABORER
+                                            Get.offAndToNamed(Routes.HOME);
                                           }
                                         }),
                                         child: const Text(

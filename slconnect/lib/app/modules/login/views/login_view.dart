@@ -97,7 +97,7 @@ class LoginView extends GetView<LoginController> {
                             ),
                             Expanded(
                                 child: Form(
-                              key: controller.formKey,
+                              key: controller.loginFormKey,
                               child: TextFormField(
                                 validator: (value) {
                                   if (value == null ||
@@ -133,7 +133,7 @@ class LoginView extends GetView<LoginController> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10))),
                           onPressed: () async {
-                            if (controller.formKey.currentState!.validate()) {
+                            if (controller.loginFormKey.currentState!.validate()) {
                               controller.showOTPSnackBar();
                               await FirebaseAuth.instance.verifyPhoneNumber(
                                 phoneNumber: controller.countryController.text +
@@ -148,7 +148,7 @@ class LoginView extends GetView<LoginController> {
                                   SharedPreferences prefs =
                                       await SharedPreferences.getInstance();
                                   prefs.setString('phone', controller.phone);
-                                  Get.toNamed(Routes.OTP);
+                                  Get.offAllNamed(Routes.OTP,arguments: controller.verifId);
                                 },
                                 codeAutoRetrievalTimeout:
                                     (String verificationId) {},

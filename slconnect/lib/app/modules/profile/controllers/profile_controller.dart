@@ -2,12 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../consts/firebase_consts.dart';
+
 class ProfileController extends GetxController {
   //TODO: Implement ProfileController
 
   final count = 0.obs;
+  bool isLaborer = false;
+  var phoneNumber = '';
   @override
-  void onInit() {
+  void onInit() async {
+    isLaborer = await checkIsLaborer();
+    update();
+    print(isLaborer);
+    phoneNumber = getPhoneNumberOfCurrentUser() ?? "";
     super.onInit();
   }
 
@@ -31,6 +39,16 @@ class ProfileController extends GetxController {
   TextEditingController phoneController = TextEditingController();
   TextEditingController skillsController = TextEditingController();
   bool isLoading = false;
+  String? getPhoneNumberOfCurrentUser() {
+    if (currentUser != null) {
+      for (final providerProfile in currentUser!.providerData) {
+        final provider = providerProfile.providerId;
+        final uid = providerProfile.uid;
+        return providerProfile.phoneNumber;
+      }
+    }
+    return null;
+  }
 
   void setLoading() {
     isLoading = true;
@@ -41,15 +59,29 @@ class ProfileController extends GetxController {
     isLoading = false;
     update();
   }
+
   //getTheRollOf the user from the value stored in shared preferences in the loading page
   Future<String?> getUserRole() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    var employer = prefs.getString('employer');
+    if (employer == null) {
+      return "laborer";
+    } else {
+      return 'employer';
+    }
+  }
+
+  Future<bool> checkIsLaborer() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     var laborer = prefs.getString('laborer');
     var employer = prefs.getString('employer');
+    print("Printing Inside checkIsLaborer");
+    print(laborer);
+    print(employer);
     if (laborer == null) {
-      return employer;
+      return false;
     } else {
-      return laborer;
+      return true;
     }
   }
 }

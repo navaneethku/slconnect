@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:slconnect/consts/firebase_consts.dart';
 
 class BookingController extends GetxController {
   //TODO: Implement BookingController
@@ -18,6 +19,5 @@ class BookingController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
   void increment() => count.value++;
 }

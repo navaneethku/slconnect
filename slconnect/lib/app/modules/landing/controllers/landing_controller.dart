@@ -34,4 +34,12 @@ class LandingController extends GetxController {
     isSelectedEmployer = true;
     update();
   }
+
+  bool isButtonActive = false;
+  void checkIsButtonActive() {
+    if (isSelectedLaborer || isSelectedEmployer) {
+      isButtonActive = true;
+    }
+    update();
+  }
 }

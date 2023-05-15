@@ -40,9 +40,13 @@ class LandingView extends GetView<LandingController> {
                 child: GestureDetector(
                   onTap: () async {
                     controller.selectLaborer();
-                    SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    prefs.setString('laborer', 'laborer');
+                    controller.checkIsButtonActive();
+                    controller.update();
+                    if (controller.isSelectedLaborer) {
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      prefs.setString('laborer', 'laborer');
+                    }
                   },
                   child: Card(
                     color: _.isSelectedLaborer ? secondary : primary,
@@ -64,9 +68,13 @@ class LandingView extends GetView<LandingController> {
                 child: GestureDetector(
                   onTap: () async {
                     controller.selectEmployer();
-                    SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    prefs.setString('employer', 'employer');
+                    controller.checkIsButtonActive();
+                    controller.update();
+                    if (controller.isSelectedLaborer == false) {
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      prefs.setString('employer', 'employer');
+                    }
                   },
                   child: Card(
                     color: _.isSelectedEmployer ? secondary : primary,
@@ -88,9 +96,12 @@ class LandingView extends GetView<LandingController> {
                 alignment: Alignment.center,
                 child: ElevatedButton(
                     statesController: MaterialStatesController(),
-                    onPressed: () {
-                      Get.to(Routes.PROFILE);
-                    },
+                    onPressed: controller.isButtonActive
+                        ? () {
+                            Get.offAllNamed(Routes.PROFILE);
+                            // controller.update();
+                          }
+                        : null,
                     child: const Text(
                       "Welcome",
                     )),
