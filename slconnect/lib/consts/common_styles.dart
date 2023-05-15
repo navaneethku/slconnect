@@ -10,6 +10,10 @@ const TextStyle selectedLabelStyle =
     TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 12);
 
 const TextStyle mediumWhite = TextStyle(color: Colors.white, fontSize: 18);
+const TextStyle mediumWhiteBold =
+    TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold);
+const TextStyle largeWhiteBold =
+    TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold);
 const TextStyle mediumPrimary = TextStyle(color: primary, fontSize: 18);
 const TextStyle mediumPrimaryBold =
     TextStyle(color: primary, fontSize: 18, fontWeight: FontWeight.w600);
@@ -17,7 +21,7 @@ const TextStyle largePrimary = TextStyle(color: primary, fontSize: 24);
 const TextStyle largeBlack = TextStyle(color: primary, fontSize: 24);
 const TextStyle largePrimaryBold =
     TextStyle(color: primary, fontSize: 24, fontWeight: FontWeight.w600);
-    const TextStyle largePrimaryBlack =
+const TextStyle largePrimaryBlack =
     TextStyle(color: primary, fontSize: 24, fontWeight: FontWeight.w600);
 const textStyle = TextStyle(
   color: primary,

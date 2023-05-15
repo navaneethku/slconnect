@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,9 +26,14 @@ class LandingView extends GetView<LandingController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(
+              const Text(
                 "Select User Type",
                 style: largePrimaryBold,
+              ),
+              Image.asset(
+                "assets/images/logo.png",
+                width: 100,
+                height: 100,
               ),
               Align(
                 alignment: Alignment.center,
@@ -43,10 +49,10 @@ class LandingView extends GetView<LandingController> {
                     child: Container(
                       height: 200,
                       width: 200,
-                      child: Center(
+                      child: const Center(
                         child: Text(
                           "LABORER",
-                          style: mediumWhite,
+                          style: largeWhiteBold,
                         ),
                       ),
                     ),
@@ -64,13 +70,13 @@ class LandingView extends GetView<LandingController> {
                   },
                   child: Card(
                     color: _.isSelectedEmployer ? secondary : primary,
-                    child: SizedBox(
+                    child: Container(
                       height: 200,
                       width: 200,
-                      child: Center(
+                      child: const Center(
                         child: Text(
                           "EMPLOYER",
-                          style: mediumWhite,
+                          style: largeWhiteBold,
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -83,7 +89,7 @@ class LandingView extends GetView<LandingController> {
                 child: ElevatedButton(
                     statesController: MaterialStatesController(),
                     onPressed: () {
-                      Get.toNamed(Routes.PROFILE);
+                      Get.to(Routes.PROFILE);
                     },
                     child: const Text(
                       "Welcome",
