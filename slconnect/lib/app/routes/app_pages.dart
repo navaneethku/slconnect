@@ -16,6 +16,8 @@ import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
+import '../modules/profile_laborer/bindings/profile_laborer_binding.dart';
+import '../modules/profile_laborer/views/profile_laborer_view.dart';
 import '../modules/settings/bindings/settings_binding.dart';
 import '../modules/settings/views/settings_view.dart';
 
@@ -71,6 +73,11 @@ class AppPages {
       name: _Paths.HOME_LABORER,
       page: () => const HomeLaborerView(),
       binding: HomeLaborerBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFILE_LABORER,
+      page: () => const ProfileLaborerView(),
+      binding: ProfileLaborerBinding(),
     ),
   ];
 }

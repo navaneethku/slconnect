@@ -3,8 +3,9 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../consts/firebase_consts.dart';
+import '../../../widgets/MultiSelect.dart';
 
-class ProfileController extends GetxController {
+class ProfileLaborerController extends GetxController {
   //TODO: Implement ProfileController
 
   final count = 0.obs;
@@ -12,9 +13,6 @@ class ProfileController extends GetxController {
   var phoneNumber = '';
   @override
   void onInit() async {
-    isLaborer = await checkIsLaborer();
-    update();
-    print(isLaborer);
     phoneNumber = getPhoneNumberOfCurrentUser() ?? "";
     super.onInit();
   }
@@ -29,7 +27,28 @@ class ProfileController extends GetxController {
     super.onClose();
   }
 
-  final employerFormKey = GlobalKey<FormState>();
+  List<String> selectedItems = [];
+
+  void showMultiSelect() async {
+    // a list of selectable items
+    // these items can be hard-coded or dynamically fetched from a database/API
+    final List<String> items = [
+      'Mistri',
+      'Painting',
+      'Landscaping',
+      'Coconut Climbing',
+      'Plumbing',
+    ];
+
+    final List<String>? results = await Get.dialog(MultiSelect(items: items));
+    // Update UI
+    if (results != null) {
+      update();
+      selectedItems = results;
+    }
+  }
+
+  final laborerFormKey = GlobalKey<FormState>();
   void increment() => count.value++;
   TextEditingController nameController = TextEditingController();
   TextEditingController locationController = TextEditingController();

@@ -41,12 +41,9 @@ class LandingView extends GetView<LandingController> {
                   onTap: () async {
                     controller.selectLaborer();
                     controller.checkIsButtonActive();
-                    controller.update();
-                    if (controller.isSelectedLaborer) {
-                      SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
-                      prefs.setString('laborer', 'laborer');
-                    }
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.setString('laborer', 'laborer');
                   },
                   child: Card(
                     color: _.isSelectedLaborer ? secondary : primary,
@@ -70,11 +67,6 @@ class LandingView extends GetView<LandingController> {
                     controller.selectEmployer();
                     controller.checkIsButtonActive();
                     controller.update();
-                    if (controller.isSelectedLaborer == false) {
-                      SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
-                      prefs.setString('employer', 'employer');
-                    }
                   },
                   child: Card(
                     color: _.isSelectedEmployer ? secondary : primary,
@@ -98,7 +90,11 @@ class LandingView extends GetView<LandingController> {
                     statesController: MaterialStatesController(),
                     onPressed: controller.isButtonActive
                         ? () {
-                            Get.offAllNamed(Routes.PROFILE);
+                            if (controller.isSelectedEmployer) {
+                              Get.offAllNamed(Routes.PROFILE);
+                            } else if (controller.isSelectedLaborer) {
+                              Get.offAllNamed(Routes.PROFILE_LABORER);
+                            }
                             // controller.update();
                           }
                         : null,

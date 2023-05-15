@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:slconnect/app/models/EmployerModel.dart';
+import 'package:slconnect/app/models/LaborerModel.dart';
 
 import '../consts/firebase_consts.dart';
 
@@ -23,7 +24,12 @@ class DatabaseService {
         .doc(currentUser!.uid)
         .set(employerData.toMap());
   }
-
+  addLaborer(LaborerModel laborerData) async {
+    await _db
+        .collection("users")
+        .doc(currentUser!.uid)
+        .set(laborerData.toMap());
+  }
   updateEmployer(EmployerModel employerData) async {
     await _db
         .collection("users")

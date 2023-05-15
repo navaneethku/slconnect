@@ -20,12 +20,8 @@ class ProfileView extends GetView<ProfileController> {
         ),
         appBar: AppBar(
           elevation: 1,
-          title: controller.isLaborer
-              ? const Text(
-                  "Laborer Profile",
-                  style: largePrimaryBold,
-                )
-              : const Text(
+          title: 
+              const Text(
                   'Employer Profile',
                   style: largePrimaryBold,
                 ),
