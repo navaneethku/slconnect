@@ -11,6 +11,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   var phone = prefs.getString('phone');
+  var laborer = prefs.getString('laborer');
+  var employer = prefs.getString('employer');
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
     GetMaterialApp(
@@ -18,7 +20,8 @@ Future<void> main() async {
       debugShowCheckedModeBanner: false,
       title: "Application",
       initialRoute:
-          phone == null ? AppPages.ISNOTLOGGEDIN : AppPages.ISLOGGEDIN,
+      //Will Break if user goes to create profile and does not create profile, he/she will be directed to the home page without beingable to create a profile
+          phone == null ? AppPages.ISNOTLOGGEDIN : laborer == null?AppPages.HASCREATED_PROFILE_EMPLOYER: employer == null?AppPages.HASCREATED_PROFILE_LABORER: AppPages.ISLOGGEDIN,
       getPages: AppPages.routes,
     ),
   );

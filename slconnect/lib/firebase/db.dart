@@ -24,12 +24,14 @@ class DatabaseService {
         .doc(currentUser!.uid)
         .set(employerData.toMap());
   }
+
   addLaborer(LaborerModel laborerData) async {
     await _db
         .collection("users")
         .doc(currentUser!.uid)
         .set(laborerData.toMap());
   }
+
   updateEmployer(EmployerModel employerData) async {
     await _db
         .collection("users")
@@ -64,5 +66,24 @@ class DatabaseService {
     } else {
       return null;
     }
+  }
+
+  Future<List<LaborerModel?>> getAllLaborers() async {
+    QuerySnapshot<Map<String, dynamic>> snapshot =
+        await _db.collection("users").where('role', isEqualTo: 'laborer').get();
+    return snapshot.docs
+        .map((docSnapshot) => LaborerModel.fromDocumentSnapshot(docSnapshot))
+        .toList();
+  }
+
+  Future<List<LaborerModel?>> getLaborersByCategory(String skill) async {
+    QuerySnapshot<Map<String, dynamic>> snapshot = await _db
+        .collection("users")
+        .where('role', isEqualTo: 'laborer')
+        .where('skills', arrayContains: skill)
+        .get();
+    return snapshot.docs
+        .map((docSnapshot) => LaborerModel.fromDocumentSnapshot(docSnapshot))
+        .toList();
   }
 }

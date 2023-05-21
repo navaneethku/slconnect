@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LandingController extends GetxController {
   //TODO: Implement LandingController
@@ -41,5 +42,12 @@ class LandingController extends GetxController {
       isButtonActive = true;
     }
     update();
+  }
+  Future<bool> checkIsLaborer() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var laborer = prefs.containsKey('laborer');
+    print("Printing Inside checkIsLaborer");
+    print(laborer);
+    return laborer;
   }
 }

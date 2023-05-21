@@ -16,6 +16,10 @@ class ProfileController extends GetxController {
     update();
     print(isLaborer);
     phoneNumber = getPhoneNumberOfCurrentUser() ?? "";
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    print("Is the laborer key in memory?" +
+        prefs.containsKey("laborer").toString());
+    prefs.remove("laborer");
     super.onInit();
   }
 

@@ -14,6 +14,8 @@ class ProfileLaborerController extends GetxController {
   @override
   void onInit() async {
     phoneNumber = getPhoneNumberOfCurrentUser() ?? "";
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    print("Is the laborer key in memory?"+ prefs.containsKey("laborer").toString());
     super.onInit();
   }
 

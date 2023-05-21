@@ -13,6 +13,7 @@ abstract class Routes {
   static const LANDING = _Paths.LANDING;
   static const HOME_LABORER = _Paths.HOME_LABORER;
   static const PROFILE_LABORER = _Paths.PROFILE_LABORER;
+  static const CATEGORY_DETAILED = _Paths.CATEGORY_DETAILED;
 }
 
 abstract class _Paths {
@@ -27,4 +28,5 @@ abstract class _Paths {
   static const LANDING = '/landing';
   static const HOME_LABORER = '/home-laborer';
   static const PROFILE_LABORER = '/profile-laborer';
+  static const CATEGORY_DETAILED = '/category-detailed';
 }

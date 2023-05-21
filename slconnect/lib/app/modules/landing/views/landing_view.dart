@@ -44,6 +44,7 @@ class LandingView extends GetView<LandingController> {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
                     prefs.setString('laborer', 'laborer');
+                    prefs.remove("employer");
                   },
                   child: Card(
                     color: _.isSelectedLaborer ? secondary : primary,
@@ -66,7 +67,10 @@ class LandingView extends GetView<LandingController> {
                   onTap: () async {
                     controller.selectEmployer();
                     controller.checkIsButtonActive();
-                    controller.update();
+                    SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              prefs.setString("employer", "employer");
+                              prefs.remove("laborer");
                   },
                   child: Card(
                     color: _.isSelectedEmployer ? secondary : primary,
@@ -89,10 +93,14 @@ class LandingView extends GetView<LandingController> {
                 child: ElevatedButton(
                     statesController: MaterialStatesController(),
                     onPressed: controller.isButtonActive
-                        ? () {
+                        ? () async {
                             if (controller.isSelectedEmployer) {
                               Get.offAllNamed(Routes.PROFILE);
                             } else if (controller.isSelectedLaborer) {
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              prefs.setString("laborer", "laborer");
+                              prefs.remove("employer");
                               Get.offAllNamed(Routes.PROFILE_LABORER);
                             }
                             // controller.update();

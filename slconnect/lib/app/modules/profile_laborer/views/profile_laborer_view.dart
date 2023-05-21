@@ -150,7 +150,7 @@ class ProfileLaborerView extends GetView<ProfileLaborerController> {
                                               await service.addLaborer(laborer);
                                               controller.setLoadingFalse();
                                               //TODO GO TO Routes.HOME if role == employer, else Routes.HOME_LABORER
-                                              Get.offAndToNamed(Routes.HOME);
+                                              Get.offAndToNamed(Routes.HOME_LABORER);
                                             }
                                           }),
                                           child: const Text(

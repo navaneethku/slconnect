@@ -14,21 +14,22 @@ class ProfileView extends GetView<ProfileController> {
   const ProfileView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
         bottomNavigationBar: const BottomNavigation(
           currentIndex: 2,
         ),
         appBar: AppBar(
           elevation: 1,
-          title: 
-              const Text(
-                  'Employer Profile',
-                  style: largePrimaryBold,
-                ),
+          title: const Text(
+            'Employer Profile',
+            style: largePrimaryBold,
+          ),
           centerTitle: true,
         ),
         body: SingleChildScrollView(
           child: Container(
+              height: height,
               decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage("assets/images/background.gif"),

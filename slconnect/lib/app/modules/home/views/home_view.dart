@@ -73,19 +73,28 @@ class HomeView extends GetView<HomeController> {
                                       crossAxisSpacing: 1,
                                       childAspectRatio: 0.95,
                                       crossAxisCount: 2),
-                              itemCount: controller.skillsList.length - 1,
+                              itemCount: controller.skillsList.length,
                               //DECREASED COUNT FOR AESTHETICS
                               itemBuilder: (BuildContext context, int index) {
-                                Color bgColor =
-                                    index % 3 == 0 ? primary : secondary;
+                                List blueIndices = [0, 3, 4];
+                                Color bgColor = blueIndices.contains(index)
+                                    ? primary
+                                    : secondary;
 
-                                return Card(
-                                  color: bgColor,
-                                  child: Center(
-                                    child: Text(
-                                      controller.skillsList[index],
-                                      style: mediumWhite,
-                                      textAlign: TextAlign.center,
+                                return GestureDetector(
+                                  onTap: () {
+                                    Get.toNamed(Routes.CATEGORY_DETAILED,
+                                        arguments:
+                                            controller.skillsList[index]);
+                                  },
+                                  child: Card(
+                                    color: bgColor,
+                                    child: Center(
+                                      child: Text(
+                                        controller.skillsList[index],
+                                        style: mediumWhite,
+                                        textAlign: TextAlign.center,
+                                      ),
                                     ),
                                   ),
                                 );

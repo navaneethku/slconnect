@@ -8,7 +8,9 @@ final TextStyle unselectedLabelStyle = TextStyle(
 
 const TextStyle selectedLabelStyle =
     TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 12);
-
+const TextStyle smallWhite = TextStyle(color: Colors.white, fontSize: 12);
+const TextStyle smallWhiteBold =
+    TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold);
 const TextStyle mediumWhite = TextStyle(color: Colors.white, fontSize: 18);
 const TextStyle mediumWhiteBold =
     TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold);

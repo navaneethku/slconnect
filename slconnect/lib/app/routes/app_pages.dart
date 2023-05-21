@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/booking/bindings/booking_binding.dart';
 import '../modules/booking/views/booking_view.dart';
+import '../modules/category_detailed/bindings/category_detailed_binding.dart';
+import '../modules/category_detailed/views/category_detailed_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/home_laborer/bindings/home_laborer_binding.dart';
@@ -27,6 +29,8 @@ class AppPages {
   AppPages._();
   static const ISNOTLOGGEDIN = Routes.LOGIN;
   static const ISLOGGEDIN = Routes.LANDING;
+  static const HASCREATED_PROFILE_LABORER = Routes.HOME_LABORER;
+  static const HASCREATED_PROFILE_EMPLOYER = Routes.HOME;
 
   static final routes = [
     GetPage(
@@ -78,6 +82,11 @@ class AppPages {
       name: _Paths.PROFILE_LABORER,
       page: () => const ProfileLaborerView(),
       binding: ProfileLaborerBinding(),
+    ),
+    GetPage(
+      name: _Paths.CATEGORY_DETAILED,
+      page: () => const CategoryDetailedView(),
+      binding: CategoryDetailedBinding(),
     ),
   ];
 }
