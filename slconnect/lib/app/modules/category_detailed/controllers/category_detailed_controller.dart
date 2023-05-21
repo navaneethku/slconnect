@@ -7,10 +7,6 @@ class CategoryDetailedController extends GetxController {
   final count = 0.obs;
   @override
   void onInit() async {
-    var laborerListByCategory =
-        await DatabaseService().getLaborersByCategory("Mistri");
-
-
     super.onInit();
   }
 

@@ -15,7 +15,8 @@ class ProfileLaborerController extends GetxController {
   void onInit() async {
     phoneNumber = getPhoneNumberOfCurrentUser() ?? "";
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    print("Is the laborer key in memory?"+ prefs.containsKey("laborer").toString());
+    print("Is the laborer key in memory?" +
+        prefs.containsKey("laborer").toString());
     super.onInit();
   }
 
@@ -40,6 +41,7 @@ class ProfileLaborerController extends GetxController {
       'Landscaping',
       'Coconut Climbing',
       'Plumbing',
+      'Wood Working'
     ];
 
     final List<String>? results = await Get.dialog(MultiSelect(items: items));

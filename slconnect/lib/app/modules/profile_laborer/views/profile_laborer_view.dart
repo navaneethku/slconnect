@@ -97,10 +97,26 @@ class ProfileLaborerView extends GetView<ProfileLaborerController> {
                                   return null;
                                 },
                               ),
+                              const SizedBox(height: 10.0),
+                              const Text('Location', style: textStyle),
+                              const SizedBox(height: 10.0),
+
+                              TextFormField(
+                                controller: controller.descriptionController,
+                                keyboardType: TextInputType.text,
+                                decoration: inputDecoration.copyWith(
+                                    hintText: "Enter your Description"),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter Description';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(height: 10.0),
                               ElevatedButton(
                                 onPressed: controller.showMultiSelect,
-                                child:
-                                    const Text('Select Your Favorite Topics'),
+                                child: const Text('Select Your Skills'),
                               ),
                               const Divider(
                                 height: 30,
@@ -138,19 +154,24 @@ class ProfileLaborerView extends GetView<ProfileLaborerController> {
                                                   LaborerModel(
                                                 name: controller
                                                     .nameController.text,
-                                                age:
-                                                    controller.ageController.text,
+                                                age: controller
+                                                    .ageController.text,
                                                 location: controller
                                                     .locationController.text,
+                                                description: controller
+                                                    .descriptionController.text,
                                                 role: tempRole ?? "",
                                                 phoneNumber:
-                                                    controller.phoneNumber, description: 'Nothing', skills: controller.selectedItems,
+                                                    controller.phoneNumber,
+                                                skills:
+                                                    controller.selectedItems,
                                               );
                                               controller.setLoading();
                                               await service.addLaborer(laborer);
                                               controller.setLoadingFalse();
                                               //TODO GO TO Routes.HOME if role == employer, else Routes.HOME_LABORER
-                                              Get.offAndToNamed(Routes.HOME_LABORER);
+                                              Get.offAndToNamed(
+                                                  Routes.HOME_LABORER);
                                             }
                                           }),
                                           child: const Text(

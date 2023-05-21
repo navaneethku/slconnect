@@ -14,7 +14,7 @@ class CategoryDetailedView extends GetView<CategoryDetailedController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('CategoryDetailedView'),
+        title: Text(Get.arguments),
         centerTitle: true,
       ),
       body: FutureBuilder(
@@ -26,51 +26,70 @@ class CategoryDetailedView extends GetView<CategoryDetailedController> {
             return Center(
               child: Column(
                 children: [
-                  Text(
-                    Get.arguments,
-                    style: TextStyle(fontSize: 20),
-                  ),
                   Expanded(
                     child: ListView.builder(
                       itemCount: laborerListLength,
                       itemBuilder: (context, index) {
                         LaborerModel? laborer = snapshot.data?[index];
                         return Container(
-                          margin: EdgeInsets.symmetric(horizontal: 20),
-                          child: Card(
-                            color: index % 2 == 0 ? primary : secondary,
-                            child: Padding(
-                              padding: EdgeInsets.all(20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 5),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(16),
+                            child: ExpansionTile(
+                              shape: const Border(),
+                              collapsedBackgroundColor:
+                                  index % 2 == 0 ? primary : secondary,
+                              backgroundColor:
+                                  index % 2 == 0 ? primary : secondary,
+                              title: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          laborer!.name,
-                                          style: mediumWhite,
-                                        ),
-                                        Text(
-                                          laborer.phoneNumber,
-                                          style: mediumWhite,
-                                        )
-                                      ]),
                                   Text(
-                                    laborer.age,
+                                    laborer!.name,
                                     style: mediumWhite,
                                   ),
-                                  Text(
-                                    laborer.description,
-                                    style: mediumWhite,
+                                  const Spacer(),
+                                  const Spacer(),
+                                  Icon(
+                                    Icons.arrow_drop_down_rounded,
+                                    color: index % 2 == 0 ? secondary : primary,
                                   ),
-                                  Text(
-                                    laborer.location,
-                                    style: mediumWhite,
-                                  ),
+                                  const Spacer(),
                                 ],
                               ),
+                              trailing: Text(
+                                laborer.phoneNumber,
+                                style: mediumWhite,
+                              ),
+                              children: [
+                                Container(
+                                  color: index % 2 == 0 ? primary : secondary,
+                                  child: Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        20, 0, 20, 20),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text("Description",
+                                            style: index % 2 == 0
+                                                ? mediumSecondaryBold
+                                                : mediumPrimaryBold),
+                                        Text(laborer.description,
+                                            style: mediumWhite),
+                                        Text("Location",
+                                            style: index % 2 == 0
+                                                ? mediumSecondaryBold
+                                                : mediumPrimaryBold),
+                                        Text(laborer.location,
+                                            style: mediumWhite),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         );
@@ -81,7 +100,7 @@ class CategoryDetailedView extends GetView<CategoryDetailedController> {
               ),
             );
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
