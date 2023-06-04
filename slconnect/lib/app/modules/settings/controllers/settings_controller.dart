@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:slconnect/consts/firebase_consts.dart';
 
 class SettingsController extends GetxController {
   //TODO: Implement SettingsController
@@ -6,6 +8,7 @@ class SettingsController extends GetxController {
   final count = 0.obs;
   @override
   void onInit() {
+    debugPrint(currentUser?.uid);
     super.onInit();
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:slconnect/app/routes/app_pages.dart';
 import 'package:slconnect/consts/colors.dart';
 import 'package:slconnect/consts/common_styles.dart';
 import 'package:slconnect/firebase/db.dart';
@@ -65,6 +66,7 @@ class CategoryDetailedView extends GetView<CategoryDetailedController> {
                               ),
                               children: [
                                 Container(
+                                  width: double.maxFinite,
                                   color: index % 2 == 0 ? primary : secondary,
                                   child: Padding(
                                     padding: const EdgeInsets.fromLTRB(
@@ -85,6 +87,21 @@ class CategoryDetailedView extends GetView<CategoryDetailedController> {
                                                 : mediumPrimaryBold),
                                         Text(laborer.location,
                                             style: mediumWhite),
+                                        Align(
+                                          alignment: Alignment.center,
+                                          child: MaterialButton(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(16)),
+                                            color: Theme.of(context).cardColor,
+                                            onPressed: () {
+                                              Get.toNamed(
+                                                  Routes.PROFILE_LABORER,
+                                                  arguments: laborer);
+                                            },
+                                            child: const Text("Check Profile"),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
