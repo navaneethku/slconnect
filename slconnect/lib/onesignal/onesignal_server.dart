@@ -38,7 +38,7 @@ class OneSignalService {
     var deviceState = await _instance!.getDeviceState();
     if (deviceState != null || deviceState?.userId != null) {
       String tokenId = deviceState!.userId!;
-      print("TOKEN ID: " + tokenId);
+      print("TOKEN ID: $tokenId");
       saveToken(tokenId);
     }
   }

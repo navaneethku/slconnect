@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:slconnect/consts/colors.dart';
 import 'package:slconnect/consts/common_styles.dart';
@@ -25,8 +22,8 @@ class _DateRangePickerWidgetState extends State<DateRangePickerWidget> {
   Future<void> _selectDateRange(BuildContext context) async {
     final DateTimeRange? dateRange = await showDateRangePicker(
       context: context,
-      firstDate: DateTime.now().subtract(Duration(days: 30)),
-      lastDate: DateTime.now().add(Duration(days: 365)),
+      firstDate: DateTime.now().subtract(const Duration(days: 30)),
+      lastDate: DateTime.now().add(const Duration(days: 365)),
       initialDateRange: DateTimeRange(start: _startDate, end: _endDate),
     );
 
@@ -52,33 +49,33 @@ class _DateRangePickerWidgetState extends State<DateRangePickerWidget> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "Start",
                   style: mediumWhiteBold,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
                   decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.all(Radius.circular(16))),
+                      borderRadius: const BorderRadius.all(Radius.circular(16))),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.calendar_month_rounded,
                         color: primary,
                         size: 24,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
                       Text(
-                        '${DateFormat.yMMMMd().format(_startDate)}',
-                        style: TextStyle(color: Colors.black, fontSize: 14),
+                        DateFormat.yMMMMd().format(_startDate),
+                        style: const TextStyle(color: Colors.black, fontSize: 14),
                       ),
                     ],
                   ),
@@ -88,33 +85,33 @@ class _DateRangePickerWidgetState extends State<DateRangePickerWidget> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "End",
                   style: mediumWhiteBold,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
                   decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.all(Radius.circular(16))),
+                      borderRadius: const BorderRadius.all(Radius.circular(16))),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.calendar_month_rounded,
                         color: primary,
                         size: 24,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
                       Text(
-                        '${DateFormat.yMMMMd().format(_endDate)}',
-                        style: TextStyle(color: Colors.black, fontSize: 14),
+                        DateFormat.yMMMMd().format(_endDate),
+                        style: const TextStyle(color: Colors.black, fontSize: 14),
                       ),
                     ],
                   ),

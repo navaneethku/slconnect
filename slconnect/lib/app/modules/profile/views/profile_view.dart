@@ -38,8 +38,8 @@ class ProfileView extends GetView<ProfileController> {
               child: Column(children: [
                 Container(
                   alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.only(left: 16.0),
-                  child: Text(
+                  padding: const EdgeInsets.only(left: 16.0),
+                  child: const Text(
                     "Create Profile",
                     style: largePrimaryBold,
                   ),
@@ -47,7 +47,7 @@ class ProfileView extends GetView<ProfileController> {
                 Form(
                     key: controller.employerFormKey,
                     child: Padding(
-                      padding: EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

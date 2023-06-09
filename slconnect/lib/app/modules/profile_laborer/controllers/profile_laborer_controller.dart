@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
-import 'package:slconnect/consts/api_keys.dart';
-import 'dart:convert';
+import 'package:slconnect/firebase/db.dart';
 import '../../../../consts/common_instances.dart';
+import '../../../models/LaborerModel.dart';
 import '../../../widgets/MultiSelect.dart';
 
 class ProfileLaborerController extends GetxController {
@@ -26,21 +25,11 @@ class ProfileLaborerController extends GetxController {
     if (prefs.containsKey("laborer")) {
       isLaborer = true;
     }
-    debugPrint("Is the laborer key in memory?" +
-        prefs.containsKey("laborer").toString());
-    // Get.delete<ProfileLaborerController>();
-    // controller = Get.put(ProfileLaborerController());
+    debugPrint("Is the laborer key in memory?${prefs.containsKey("laborer")}");
+    checkCreatedProfile();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   List<String> selectedItems = [];
 
@@ -182,7 +171,21 @@ class ProfileLaborerController extends GetxController {
     return laborer;
   }
 
-  void setCreatedProfile() {
-    hasCreatedProfile = true;
+  void setCreatedProfile() async {
+    var hasCreatedProfileLaborer = await prefs;
+    hasCreatedProfileLaborer.setBool("hasCreatedProfileLaborer", true);
+  }
+
+  void checkCreatedProfile() async {
+    var hasCreatedProfileLaborer = await prefs;
+    if (hasCreatedProfileLaborer.getBool("hasCreatedProfileLaborer") == true) {
+      hasCreatedProfile = true;
+      LaborerModel? em = await DatabaseService().getLaborerById();
+      nameController.text = em?.name ?? "";
+      ageController.text = em?.age ?? "";
+      descriptionController.text = em?.description ?? "";
+      locationController.text = em?.location ?? "";
+      update();
+    }
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 // import 'package:lottie/lottie.dart';
@@ -57,9 +56,9 @@ class HomeView extends GetView<HomeController> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
+                        const Expanded(
                           flex: 1,
-                          child: const Text(
+                          child: Text(
                             "Select Category",
                             style: largePrimaryBold,
                           ),

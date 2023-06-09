@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -48,10 +47,10 @@ class LandingView extends GetView<LandingController> {
                   },
                   child: Card(
                     color: _.isSelectedLaborer ? secondary : primary,
-                    child: Container(
+                    child: const SizedBox(
                       height: 200,
                       width: 200,
-                      child: const Center(
+                      child: Center(
                         child: Text(
                           "LABORER",
                           style: largeWhiteBold,
@@ -74,10 +73,10 @@ class LandingView extends GetView<LandingController> {
                   },
                   child: Card(
                     color: _.isSelectedEmployer ? secondary : primary,
-                    child: Container(
+                    child: const SizedBox(
                       height: 200,
                       width: 200,
-                      child: const Center(
+                      child: Center(
                         child: Text(
                           "EMPLOYER",
                           style: largeWhiteBold,

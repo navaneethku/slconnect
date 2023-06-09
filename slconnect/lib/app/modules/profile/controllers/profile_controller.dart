@@ -17,21 +17,12 @@ class ProfileController extends GetxController {
     print(isLaborer);
     phoneNumber = getPhoneNumberOfCurrentUser() ?? "";
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    print("Is the laborer key in memory?" +
-        prefs.containsKey("laborer").toString());
+    print("Is the laborer key in memory?${prefs.containsKey("laborer")}");
     prefs.remove("laborer");
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   final employerFormKey = GlobalKey<FormState>();
   void increment() => count.value++;

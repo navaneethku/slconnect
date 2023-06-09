@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:slconnect/app/widgets/BottomNavigation.dart';
+import 'package:slconnect/consts/common_instances.dart';
 
 import '../../../../consts/colors.dart';
 import '../../../../consts/common_styles.dart';
@@ -37,15 +40,57 @@ class HomeLaborerView extends GetView<HomeLaborerController> {
                   child: const Icon(Icons.settings, color: primary)),
             )
           ]),
-      bottomNavigationBar: BottomNavigation(
+      bottomNavigationBar: const BottomNavigation(
         currentIndex: 0,
       ),
-      body: const Center(
-        child: Text(
-          'HomeLaborerView is working',
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
+      body: Center(
+          child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 2,
+                  child: const Text(
+                    "Choose whether you are available to be employed by interested employers",
+                  ),
+                ),
+                GetBuilder<HomeLaborerController>(
+                  builder: (_) => Align(
+                    alignment: Alignment.center,
+                    child: StreamBuilder<DocumentSnapshot>(
+                        stream: FirebaseFirestore.instance
+                            .collection("availability")
+                            .doc(currentUser!.uid)
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return const CircularProgressIndicator();
+                          }
+                          bool isAvailable = snapshot.data!.get("availability");
+                          return CupertinoSwitch(
+                            focusColor: primary,
+                            activeColor: secondary,
+                            value: isAvailable,
+                            onChanged: ((newValue) {
+                              FirebaseFirestore.instance
+                                  .collection('availability')
+                                  .doc(currentUser!.uid)
+                                  .update({'availability': newValue});
+                              debugPrint(_.laborerIsAvailable.toString());
+                              controller.update();
+                            }),
+                          );
+                        }),
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
+      )),
     );
   }
 }

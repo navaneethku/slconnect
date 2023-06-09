@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:slconnect/app/models/BookingModel.dart';
 import 'package:slconnect/app/models/EmployerModel.dart';
 import 'package:slconnect/app/models/LaborerModel.dart';
@@ -31,6 +30,10 @@ class DatabaseService {
         .collection("users")
         .doc(currentUser!.uid)
         .set(laborerData.toMap());
+    final availability = <String,bool>{
+    "availability":true,
+    };
+    await _db.collection("availability").doc(currentUser!.uid).set(availability);
   }
 
   updateEmployer(EmployerModel employerData) async {
@@ -64,6 +67,27 @@ class DatabaseService {
         phoneNumber: data['phoneNumber'],
       );
       return employer;
+    } else {
+      return null;
+    }
+  }
+  //TODO
+  Future<LaborerModel?> getLaborerById() async {
+    DocumentSnapshot<Map<String, dynamic>> snapshot =
+        await _db.collection('users').doc(currentUser!.uid).get();
+    if (snapshot.exists) {
+      final Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+
+      final LaborerModel laborer = LaborerModel(
+        name: data['name'],
+        age: data['age'],
+        location: data['location'],
+        role: data['role'],
+        phoneNumber: data['phoneNumber'],
+         description: data['description'], 
+         skills: [],
+      );
+      return laborer;
     } else {
       return null;
     }
