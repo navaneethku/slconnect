@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:slconnect/consts/api_keys.dart';
 
-import '../consts/firebase_consts.dart';
+import '../consts/common_instances.dart';
 
 class OneSignalService {
   static OneSignal? _instance;

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:slconnect/consts/firebase_consts.dart';
+import 'package:slconnect/consts/common_instances.dart';
 
 class BookingController extends GetxController {
   //TODO: Implement BookingController

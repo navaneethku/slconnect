@@ -6,19 +6,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:slconnect/consts/api_keys.dart';
 import 'dart:convert';
-import '../../../../consts/firebase_consts.dart';
+import '../../../../consts/common_instances.dart';
 import '../../../widgets/MultiSelect.dart';
 
 class ProfileLaborerController extends GetxController {
   //TODO: Implement ProfileController
 
   final count = 0.obs;
-  bool isLaborer = false;
+  bool isLaborer = true;
+  bool hasCreatedProfile = false;
   String targetLaborerDocId = "";
   var phoneNumber = '';
   String deviceToken = "";
   @override
   void onInit() async {
+    super.onInit();
     phoneNumber = getPhoneNumberOfCurrentUser() ?? "";
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey("laborer")) {
@@ -26,7 +28,8 @@ class ProfileLaborerController extends GetxController {
     }
     debugPrint("Is the laborer key in memory?" +
         prefs.containsKey("laborer").toString());
-    super.onInit();
+    // Get.delete<ProfileLaborerController>();
+    // controller = Get.put(ProfileLaborerController());
   }
 
   @override
@@ -119,6 +122,7 @@ class ProfileLaborerController extends GetxController {
       'Coconut Climbing',
       'Plumbing',
       'Wood Working'
+          'Electrician'
     ];
 
     final List<String>? results = await Get.dialog(MultiSelect(items: items));
@@ -176,5 +180,9 @@ class ProfileLaborerController extends GetxController {
     print("Printing Inside checkIsLaborer");
     print(laborer);
     return laborer;
+  }
+
+  void setCreatedProfile() {
+    hasCreatedProfile = true;
   }
 }

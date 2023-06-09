@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:slconnect/consts/firebase_consts.dart';
+import 'package:slconnect/consts/common_instances.dart';
 
 import '../../../../consts/colors.dart';
 import '../../../../consts/common_styles.dart';
@@ -9,6 +9,7 @@ import '../../../../firebase/db.dart';
 import '../../../models/LaborerModel.dart';
 import '../../../routes/app_pages.dart';
 import '../../../widgets/BottomNavigation.dart';
+import '../../../widgets/date_range_picker.dart';
 import '../controllers/profile_laborer_controller.dart';
 import 'package:intl/intl.dart';
 
@@ -179,6 +180,8 @@ class ProfileLaborerView extends GetView<ProfileLaborerController> {
                                                         .addLaborer(laborer);
                                                     controller
                                                         .setLoadingFalse();
+                                                    controller
+                                                        .setCreatedProfile();
                                                     //TODO GO TO Routes.HOME if role == employer, else Routes.HOME_LABORER
                                                     Get.offAndToNamed(
                                                         Routes.HOME_LABORER);
@@ -302,6 +305,11 @@ class ProfileLaborerView extends GetView<ProfileLaborerController> {
                                                     child: const Text(
                                                         "Book Laborer"),
                                                   ),
+                                                ),
+                                                DateRangePickerWidget(
+                                                  onDateRangeSelected:
+                                                      (DateTime _startDate,
+                                                          DateTime _endDate) {},
                                                 ),
                                               ],
                                             ),

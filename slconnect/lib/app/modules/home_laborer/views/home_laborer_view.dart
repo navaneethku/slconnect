@@ -38,7 +38,7 @@ class HomeLaborerView extends GetView<HomeLaborerController> {
             )
           ]),
       bottomNavigationBar: BottomNavigation(
-        currentIndex: 2,
+        currentIndex: 0,
       ),
       body: const Center(
         child: Text(

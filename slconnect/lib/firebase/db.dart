@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:slconnect/app/models/BookingModel.dart';
 import 'package:slconnect/app/models/EmployerModel.dart';
 import 'package:slconnect/app/models/LaborerModel.dart';
 
-import '../consts/firebase_consts.dart';
+import '../consts/common_instances.dart';
 
 final FirebaseFirestore _db = FirebaseFirestore.instance;
 
@@ -85,5 +86,20 @@ class DatabaseService {
     return snapshot.docs
         .map((docSnapshot) => LaborerModel.fromDocumentSnapshot(docSnapshot))
         .toList();
+  }
+   static Future<BookingModel?> fetchBooking(String bookingId) async {
+    final snapshot =
+        await FirebaseFirestore.instance.collection('bookings').doc(bookingId).get();
+
+    if (snapshot.exists) {
+      final data = snapshot.data() as Map<String, dynamic>;
+      return BookingModel.fromJson(data);
+    }
+
+    return null;
+  }
+
+  static Future<void> deleteBooking(String bookingId) async {
+    await FirebaseFirestore.instance.collection('bookings').doc(bookingId).delete();
   }
 }

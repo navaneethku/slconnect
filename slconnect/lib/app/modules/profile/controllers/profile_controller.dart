@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../consts/firebase_consts.dart';
+import '../../../../consts/common_instances.dart';
 
 class ProfileController extends GetxController {
   //TODO: Implement ProfileController

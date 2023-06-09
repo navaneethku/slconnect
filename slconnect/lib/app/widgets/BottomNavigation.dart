@@ -5,9 +5,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:slconnect/app/routes/app_pages.dart';
 import 'package:slconnect/consts/colors.dart';
 
-class BottomNavigation extends StatelessWidget {
+class BottomNavigation extends StatefulWidget {
   const BottomNavigation({super.key, required this.currentIndex});
   final int currentIndex;
+  @override
+  State<BottomNavigation> createState() => _BottomNavigationState();
+}
+
+class _BottomNavigationState extends State<BottomNavigation> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
@@ -25,21 +30,21 @@ class BottomNavigation extends StatelessWidget {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home,
-                color: currentIndex == 0 ? secondary : primary),
+                color: widget.currentIndex == 0 ? secondary : primary),
             label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.bookmark,
-                color: currentIndex == 1 ? secondary : primary),
+                color: widget.currentIndex == 1 ? secondary : primary),
             label: 'My Bookings',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person,
-                color: currentIndex == 2 ? secondary : primary),
+                color: widget.currentIndex == 2 ? secondary : primary),
             label: 'Profile',
           ),
         ],
-        currentIndex: currentIndex,
+        currentIndex: widget.currentIndex,
         selectedItemColor: secondary,
         showUnselectedLabels: true,
         unselectedItemColor: primary,
@@ -48,24 +53,24 @@ class BottomNavigation extends StatelessWidget {
           if (prefs.containsKey("laborer") == true) {
             switch (index) {
               case 0:
-                Get.toNamed(Routes.HOME_LABORER);
+                Get.offAllNamed(Routes.HOME_LABORER);
                 break;
               case 1:
-                Get.toNamed(Routes.BOOKING);
+                Get.offAllNamed(Routes.BOOKING);
                 break;
               case 2:
-                Get.toNamed(Routes.PROFILE_LABORER);
+                Get.offAllNamed(Routes.PROFILE_LABORER);
             }
           } else {
             switch (index) {
               case 0:
-                Get.toNamed(Routes.HOME);
+                Get.offNamed(Routes.HOME);
                 break;
               case 1:
-                Get.toNamed(Routes.BOOKING);
+                Get.offNamed(Routes.BOOKING);
                 break;
               case 2:
-                Get.toNamed(Routes.PROFILE);
+                Get.offNamed(Routes.PROFILE);
             }
           }
         });

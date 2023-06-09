@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:slconnect/consts/firebase_consts.dart';
+import 'package:slconnect/consts/common_instances.dart';
 import 'package:slconnect/onesignal/onesignal_server.dart';
 
 class LandingController extends GetxController {
