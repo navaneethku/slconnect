@@ -12,14 +12,13 @@ class ProfileLaborerController extends GetxController {
   //TODO: Implement ProfileController
 
   final count = 0.obs;
-  bool isLaborer = true;
+  bool isLaborer = false;
   bool hasCreatedProfile = false;
   String targetLaborerDocId = "";
   var phoneNumber = '';
   String deviceToken = "";
   @override
   void onInit() async {
-    super.onInit();
     phoneNumber = getPhoneNumberOfCurrentUser() ?? "";
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey("laborer")) {
@@ -27,9 +26,8 @@ class ProfileLaborerController extends GetxController {
     }
     debugPrint("Is the laborer key in memory?${prefs.containsKey("laborer")}");
     checkCreatedProfile();
+    super.onInit();
   }
-
-
 
   List<String> selectedItems = [];
 
@@ -130,6 +128,7 @@ class ProfileLaborerController extends GetxController {
   TextEditingController descriptionController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController skillsController = TextEditingController();
+  DateTime startDate = DateTime.now(), endDate = DateTime.now();
   bool isLoading = false;
   String? getPhoneNumberOfCurrentUser() {
     if (currentUser != null) {

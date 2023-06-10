@@ -47,7 +47,7 @@ class ProfileLaborerView extends GetView<ProfileLaborerController> {
                                   return const CircularProgressIndicator();
                                 }
                                 LaborerModel? em = snapshot.data;
-                                
+
                                 return Container(
                                     height: MediaQuery.of(context).size.height,
                                     decoration: const BoxDecoration(
@@ -60,7 +60,8 @@ class ProfileLaborerView extends GetView<ProfileLaborerController> {
                                     child: Column(children: [
                                       Container(
                                         alignment: Alignment.centerLeft,
-                                        padding: const EdgeInsets.only(left: 16.0),
+                                        padding:
+                                            const EdgeInsets.only(left: 16.0),
                                         child: const Text(
                                           "Edit Profile",
                                           style: largePrimaryBold,
@@ -578,10 +579,23 @@ class ProfileLaborerView extends GetView<ProfileLaborerController> {
                                                                           .targetLaborerDocId);
                                                           debugPrint(
                                                               "Device Id of Laborer is :${controller.deviceToken}");
-                                                          controller.sendPushNotification(
+                                                          if (controller
+                                                                  .startDate ==
+                                                              controller
+                                                                  .endDate) {
+                                                            controller.sendPushNotification(
+                                                                controller
+                                                                    .deviceToken,
+                                                                "${currentUser!.phoneNumber} has booked you for the date ${DateFormat.yMMMMd().format(controller.startDate)}");
+                                                          } else if (controller
+                                                                  .startDate !=
+                                                              controller
+                                                                  .endDate) {
+                                                                    controller.sendPushNotification(
                                                               controller
                                                                   .deviceToken,
-                                                              "${currentUser!.phoneNumber} has booked you ${DateFormat.yMMMMd().format(DateTime.now())}");
+                                                              "${currentUser!.phoneNumber} has booked you for the dates ${DateFormat.yMMMMd().format(controller.startDate)} - ${DateFormat.yMMMMd().format(controller.endDate)}");
+                                                                  }
                                                         },
                                                         child: const Text(
                                                             "Book Laborer"),
@@ -591,7 +605,12 @@ class ProfileLaborerView extends GetView<ProfileLaborerController> {
                                                       onDateRangeSelected:
                                                           (DateTime startDate,
                                                               DateTime
-                                                                  endDate) {},
+                                                                  endDate) {
+                                                        controller.startDate =
+                                                            startDate;
+                                                        controller.endDate =
+                                                            endDate;
+                                                      },
                                                     ),
                                                   ],
                                                 ),

@@ -22,6 +22,7 @@ class OneSignalService {
     });
     _instance!
         .setNotificationOpenedHandler((OSNotificationOpenedResult result) {
+          
 // Will be called whenever a notification is opened/button pressed.
     });
     _instance!.setPermissionObserver((OSPermissionStateChanges changes) {

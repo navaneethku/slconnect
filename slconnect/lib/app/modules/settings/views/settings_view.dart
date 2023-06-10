@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:slconnect/firebase/db.dart';
 
+import '../../../../consts/common_instances.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/settings_controller.dart';
 
@@ -25,13 +26,12 @@ class SettingsView extends GetView<SettingsController> {
                 if (snapshot.hasData) {
                   return Column(
                     children: [
-                      Text(snapshot.data?.id??"id not entered"),
-                      Text(snapshot.data?.name ?? "name not entered"),
-                      Text(snapshot.data?.location ?? "location not entered"),
-                      Text(snapshot.data?.age ?? "age not entered"),
-                      Text(snapshot.data?.phoneNumber ??
-                          "phoneNumber not entered"),
-                      Text(snapshot.data?.role ?? "role not defined")
+                      Text("UID : ${currentUser!.uid}"),
+                      Text("Name : ${snapshot.data!.name}"),
+                      Text("Location : ${snapshot.data!.location}"),
+                      Text("Age : ${snapshot.data!.age}"),
+                      Text("Phone Number : ${snapshot.data!.phoneNumber}"),
+                      Text("Role : ${snapshot.data!.role}")
                     ],
                   );
                 } else {

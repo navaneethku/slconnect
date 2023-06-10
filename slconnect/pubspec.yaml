@@ -21,12 +21,22 @@ dependencies:
   firebase_messaging: ^14.6.1
   overlay_support: ^2.1.0
   onesignal_flutter: ^3.5.1
-
+  flutter_native_splash: ^2.3.1
+flutter_native_splash:
+  android: true
+  ios: false
+  web: false
+  color: "#FFFFFF"
+  image: "assets/images/splash_screen.png"
 dev_dependencies: 
   flutter_lints: 2.0.1
   flutter_test: 
     sdk: flutter
-
+  flutter_launcher_icons:
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: false
+  image_path: "assets/images/splash_screen.png"
 flutter: 
   assets: 
     - assets/images/

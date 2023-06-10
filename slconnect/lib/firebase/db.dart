@@ -30,10 +30,13 @@ class DatabaseService {
         .collection("users")
         .doc(currentUser!.uid)
         .set(laborerData.toMap());
-    final availability = <String,bool>{
-    "availability":true,
+    final availability = <String, bool>{
+      "availability": true,
     };
-    await _db.collection("availability").doc(currentUser!.uid).set(availability);
+    await _db
+        .collection("availability")
+        .doc(currentUser!.uid)
+        .set(availability);
   }
 
   updateEmployer(EmployerModel employerData) async {
@@ -71,6 +74,7 @@ class DatabaseService {
       return null;
     }
   }
+
   //TODO
   Future<LaborerModel?> getLaborerById() async {
     DocumentSnapshot<Map<String, dynamic>> snapshot =
@@ -84,8 +88,8 @@ class DatabaseService {
         location: data['location'],
         role: data['role'],
         phoneNumber: data['phoneNumber'],
-         description: data['description'], 
-         skills: [],
+        description: data['description'],
+        skills: [],
       );
       return laborer;
     } else {
@@ -102,18 +106,28 @@ class DatabaseService {
   }
 
   Future<List<LaborerModel?>> getLaborersByCategory(String skill) async {
+    CollectionReference availabilityCollection =
+        FirebaseFirestore.instance.collection("availability");
+    QuerySnapshot availabilitySnapshot = await availabilityCollection
+        .where('availability', isEqualTo: true)
+        .get();
+    List<String> laborerIds =
+        availabilitySnapshot.docs.map((doc) => doc.id).toList();
     QuerySnapshot<Map<String, dynamic>> snapshot = await _db
         .collection("users")
         .where('role', isEqualTo: 'laborer')
-        .where('skills', arrayContains: skill)
+        .where('skills', arrayContains: skill).where(FieldPath.documentId,whereIn: laborerIds)
         .get();
     return snapshot.docs
         .map((docSnapshot) => LaborerModel.fromDocumentSnapshot(docSnapshot))
         .toList();
   }
-   static Future<BookingModel?> fetchBooking(String bookingId) async {
-    final snapshot =
-        await FirebaseFirestore.instance.collection('bookings').doc(bookingId).get();
+
+  static Future<BookingModel?> fetchBooking(String bookingId) async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('bookings')
+        .doc(bookingId)
+        .get();
 
     if (snapshot.exists) {
       final data = snapshot.data() as Map<String, dynamic>;
@@ -124,6 +138,9 @@ class DatabaseService {
   }
 
   static Future<void> deleteBooking(String bookingId) async {
-    await FirebaseFirestore.instance.collection('bookings').doc(bookingId).delete();
+    await FirebaseFirestore.instance
+        .collection('bookings')
+        .doc(bookingId)
+        .delete();
   }
 }
