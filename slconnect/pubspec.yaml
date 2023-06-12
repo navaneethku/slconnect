@@ -22,6 +22,8 @@ dependencies:
   overlay_support: ^2.1.0
   onesignal_flutter: ^3.5.1
   flutter_native_splash: ^2.3.1
+  autocomplete_textfield: ^2.0.1
+  table_calendar: ^3.0.9
 flutter_native_splash:
   android: true
   ios: false

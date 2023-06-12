@@ -21,7 +21,7 @@ class SettingsView extends GetView<SettingsController> {
         child: Column(
           children: [
             FutureBuilder(
-              future: DatabaseService().getEmployerById(),
+              future: DatabaseService().getEmployer(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return Column(

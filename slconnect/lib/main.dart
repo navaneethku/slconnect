@@ -15,6 +15,9 @@ Future<void> main() async {
   OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
     print("Accepted permission: $accepted");
   });
+  OneSignal.shared.setNotificationOpenedHandler((openedResult) {
+    Get.toNamed(Routes.NOTIFICATION);
+  });
   SharedPreferences prefs = await SharedPreferences.getInstance();
   var phone = prefs.getString('phone');
   var laborer = prefs.getString('laborer');

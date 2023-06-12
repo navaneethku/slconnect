@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -6,6 +7,7 @@ import 'package:slconnect/consts/common_instances.dart';
 import '../../../../consts/colors.dart';
 import '../../../../consts/common_styles.dart';
 import '../../../../firebase/db.dart';
+import '../../../models/BookingModel.dart';
 import '../../../models/LaborerModel.dart';
 import '../../../routes/app_pages.dart';
 import '../../../widgets/BottomNavigation.dart';
@@ -46,7 +48,6 @@ class ProfileLaborerView extends GetView<ProfileLaborerController> {
                                 if (!snapshot.hasData) {
                                   return const CircularProgressIndicator();
                                 }
-                                LaborerModel? em = snapshot.data;
 
                                 return Container(
                                     height: MediaQuery.of(context).size.height,
@@ -482,7 +483,7 @@ class ProfileLaborerView extends GetView<ProfileLaborerController> {
                                 child: ListView.builder(
                                   itemCount: 1,
                                   itemBuilder: (context, index) {
-                                    LaborerModel? laborer = Get.arguments;
+                                    LaborerModel? laborer = Get.arguments[0];
                                     debugPrint(laborer?.id);
                                     return Container(
                                       margin: const EdgeInsets.symmetric(
@@ -567,6 +568,17 @@ class ProfileLaborerView extends GetView<ProfileLaborerController> {
                                                               currentUser!.uid);
                                                           debugPrint(
                                                               "DocID of Laborer is :${laborer!.id}");
+                                                          String
+                                                              workDescription =
+                                                              controller
+                                                                  .descriptionController
+                                                                  .text;
+                                                          String priceOfWork =
+                                                              controller
+                                                                  .workPriceController
+                                                                  .text;
+                                                          debugPrint(
+                                                              workDescription);
                                                           controller
                                                                   .targetLaborerDocId =
                                                               laborer.id!;
@@ -591,11 +603,45 @@ class ProfileLaborerView extends GetView<ProfileLaborerController> {
                                                                   .startDate !=
                                                               controller
                                                                   .endDate) {
-                                                                    controller.sendPushNotification(
-                                                              controller
-                                                                  .deviceToken,
-                                                              "${currentUser!.phoneNumber} has booked you for the dates ${DateFormat.yMMMMd().format(controller.startDate)} - ${DateFormat.yMMMMd().format(controller.endDate)}");
-                                                                  }
+                                                            controller.sendPushNotification(
+                                                                controller
+                                                                    .deviceToken,
+                                                                "${currentUser!.phoneNumber} has booked you for the dates ${DateFormat.yMMMMd().format(controller.startDate)} - ${DateFormat.yMMMMd().format(controller.endDate)}");
+                                                          }
+                                                          BookingModel bookingModel = BookingModel(
+                                                              employerId:
+                                                                  currentUser!
+                                                                      .uid,
+                                                              employerPhone:
+                                                                  "${currentUser!.phoneNumber}",
+                                                              endDate:
+                                                                  Timestamp.fromDate(
+                                                                      controller
+                                                                          .endDate),
+                                                              laborerId: laborer
+                                                                      .id ??
+                                                                  "",
+                                                              skill: Get
+                                                                  .arguments[1],
+                                                              startDate:
+                                                                  Timestamp.fromDate(
+                                                                      controller
+                                                                          .startDate),
+                                                              workDescription:
+                                                                  controller
+                                                                      .workDescriptionController
+                                                                      .text,
+                                                              price: double.parse(
+                                                                  priceOfWork));
+                                                          debugPrint(controller
+                                                              .workDescriptionController
+                                                              .text);
+                                                          debugPrint(
+                                                              "After printing workDescriptionController.text");
+
+                                                          DatabaseService
+                                                              .addNotification(
+                                                                  bookingModel);
                                                         },
                                                         child: const Text(
                                                             "Book Laborer"),
@@ -610,6 +656,58 @@ class ProfileLaborerView extends GetView<ProfileLaborerController> {
                                                             startDate;
                                                         controller.endDate =
                                                             endDate;
+                                                      },
+                                                    ),
+                                                    const Text(
+                                                      "Work Description",
+                                                      style: mediumWhite,
+                                                    ),
+                                                    TextFormField(
+                                                      minLines: 2,
+                                                      maxLines: 5,
+                                                      controller: controller
+                                                          .workDescriptionController,
+                                                      keyboardType:
+                                                          TextInputType.text,
+                                                      style: mediumWhite,
+                                                      decoration: inputDecoration.copyWith(
+                                                          hintStyle:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .grey),
+                                                          hintText:
+                                                              "Enter the work description"),
+                                                      validator: (value) {
+                                                        if (value == null ||
+                                                            value.isEmpty) {
+                                                          return 'Please enter work description';
+                                                        }
+                                                        return null;
+                                                      },
+                                                    ),
+                                                    const Text(
+                                                      "Price you can pay",
+                                                      style: mediumWhite,
+                                                    ),
+                                                    TextFormField(
+                                                      controller: controller
+                                                          .workPriceController,
+                                                      keyboardType:
+                                                          TextInputType.number,
+                                                      style: mediumWhite,
+                                                      decoration: inputDecoration.copyWith(
+                                                          hintStyle:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .grey),
+                                                          hintText:
+                                                              "Enter the price you can pay for the job"),
+                                                      validator: (value) {
+                                                        if (value == null ||
+                                                            value.isEmpty) {
+                                                          return 'Please enter an amount';
+                                                        }
+                                                        return null;
                                                       },
                                                     ),
                                                   ],

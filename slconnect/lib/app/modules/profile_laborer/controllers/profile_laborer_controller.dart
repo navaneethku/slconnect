@@ -26,10 +26,16 @@ class ProfileLaborerController extends GetxController {
     }
     debugPrint("Is the laborer key in memory?${prefs.containsKey("laborer")}");
     checkCreatedProfile();
+    loadData();
     super.onInit();
   }
 
   List<String> selectedItems = [];
+  Future<void> loadData() async {
+    await Future.delayed(Duration(seconds: 1));
+    isLoading = false;
+    update();
+  }
 
   Future<String> getDeviceTokenFromUser(String docId) async {
     final collectionRef = FirebaseFirestore.instance.collection("UserTokens");
@@ -109,7 +115,6 @@ class ProfileLaborerController extends GetxController {
       'Coconut Climbing',
       'Plumbing',
       'Wood Working'
-          'Electrician'
     ];
 
     final List<String>? results = await Get.dialog(MultiSelect(items: items));
@@ -128,6 +133,8 @@ class ProfileLaborerController extends GetxController {
   TextEditingController descriptionController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController skillsController = TextEditingController();
+  TextEditingController workDescriptionController = TextEditingController();
+  TextEditingController workPriceController = TextEditingController();
   DateTime startDate = DateTime.now(), endDate = DateTime.now();
   bool isLoading = false;
   String? getPhoneNumberOfCurrentUser() {

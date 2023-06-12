@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:slconnect/app/models/BookingModel.dart';
 import 'package:slconnect/app/models/EmployerModel.dart';
 import 'package:slconnect/app/models/LaborerModel.dart';
@@ -56,7 +57,26 @@ class DatabaseService {
         .toList();
   }
 
-  Future<EmployerModel?> getEmployerById() async {
+  Future<EmployerModel?> getEmployer() async {
+    DocumentSnapshot<Map<String, dynamic>> snapshot =
+        await _db.collection('users').doc(currentUser!.uid).get();
+    if (snapshot.exists) {
+      final Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+
+      final EmployerModel employer = EmployerModel(
+        name: data['name'],
+        age: data['age'],
+        location: data['location'],
+        role: data['role'],
+        phoneNumber: data['phoneNumber'],
+      );
+      return employer;
+    } else {
+      return null;
+    }
+  }
+
+  Future<EmployerModel?> getEmployerById(String employerId) async {
     DocumentSnapshot<Map<String, dynamic>> snapshot =
         await _db.collection('users').doc(currentUser!.uid).get();
     if (snapshot.exists) {
@@ -89,7 +109,7 @@ class DatabaseService {
         role: data['role'],
         phoneNumber: data['phoneNumber'],
         description: data['description'],
-        skills: [],
+        skills: data["skills"].cast<String>(),
       );
       return laborer;
     } else {
@@ -116,25 +136,106 @@ class DatabaseService {
     QuerySnapshot<Map<String, dynamic>> snapshot = await _db
         .collection("users")
         .where('role', isEqualTo: 'laborer')
-        .where('skills', arrayContains: skill).where(FieldPath.documentId,whereIn: laborerIds)
+        .where('skills', arrayContains: skill)
+        .where(FieldPath.documentId, whereIn: laborerIds)
         .get();
     return snapshot.docs
         .map((docSnapshot) => LaborerModel.fromDocumentSnapshot(docSnapshot))
         .toList();
   }
 
-  static Future<BookingModel?> fetchBooking(String bookingId) async {
+  static Future addNotification(BookingModel bookingModel) async {
+    var bookingReference =
+        await _db.collection("notifications").add(bookingModel.toJson());
+    debugPrint("addNotificationsSuccessfull");
+    CollectionReference collectionRef =
+        FirebaseFirestore.instance.collection('notifications');
+    DocumentReference docRef = collectionRef.doc(bookingReference.id);
+    docRef.update({
+      'id': bookingReference.id,
+    });
+  }
+
+  static Future addToMyBookingAndRemoveFromNotifications(
+      BookingModel bookingModel) async {
+    var bookingReference =
+        await _db.collection("bookings").add(bookingModel.toJson());
+    debugPrint("addBookingSuccessfull");
+    CollectionReference collectionRef =
+        FirebaseFirestore.instance.collection("notifications");
+    DocumentReference docRef = collectionRef.doc(bookingModel.id);
+    docRef.delete();
+    debugPrint("deleteSuccessfull");
+  }
+  static Future removeFromNotifications(
+      BookingModel bookingModel) async {
+    CollectionReference collectionRef =
+        FirebaseFirestore.instance.collection("notifications");
+    DocumentReference docRef = collectionRef.doc(bookingModel.id);
+    docRef.delete();
+    debugPrint("deleteSuccessfull");
+  }
+
+  static Future<List<BookingModel>> fetchBookingLaborer() async {
     final snapshot = await FirebaseFirestore.instance
         .collection('bookings')
-        .doc(bookingId)
+        .where("laborerId", isEqualTo: currentUser!.uid)
         .get();
 
-    if (snapshot.exists) {
-      final data = snapshot.data() as Map<String, dynamic>;
-      return BookingModel.fromJson(data);
-    }
+    List<BookingModel> bookingList = [];
+    snapshot.docs.forEach((doc) {
+      BookingModel booking = BookingModel.fromJson(doc.data());
+      bookingList.add(booking);
+    });
+    return bookingList;
+  }
 
-    return null;
+  Stream<List<BookingModel>> fetchBookingLaborerStream() {
+    return FirebaseFirestore.instance
+        .collection('notifications')
+        .where("laborerId", isEqualTo: currentUser!.uid)
+        .snapshots()
+        .map((snapshot) => snapshot.docs.map((doc) {
+              return BookingModel.fromJson(doc.data());
+            }).toList());
+  }
+
+  Stream<List<BookingModel>> fetchBookingLaborerForBookingPageStream() {
+    return FirebaseFirestore.instance
+        .collection('bookings')
+        .where("laborerId", isEqualTo: currentUser!.uid)
+        .snapshots()
+        .map((snapshot) => snapshot.docs.map((doc) {
+              return BookingModel.fromJson(doc.data());
+            }).toList());
+  }
+
+  static Future<List<BookingModel>> fetchBookingEmployer() async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('bookings')
+        .where("employerId", isEqualTo: currentUser!.uid)
+        .get();
+
+    List<BookingModel> bookingList = [];
+    snapshot.docs.forEach((doc) {
+      BookingModel booking = BookingModel.fromJson(doc.data());
+      bookingList.add(booking);
+    });
+    return bookingList;
+  }
+
+  static Future<List<BookingModel>> fetchBookingEmployerforBookingPage() async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('bookings')
+        .where("employerId", isEqualTo: currentUser!.uid)
+        .get();
+
+    List<BookingModel> bookingList = [];
+    snapshot.docs.forEach((doc) {
+      BookingModel booking = BookingModel.fromJson(doc.data());
+      bookingList.add(booking);
+    });
+    return bookingList;
   }
 
   static Future<void> deleteBooking(String bookingId) async {
