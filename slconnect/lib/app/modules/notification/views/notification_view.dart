@@ -10,6 +10,7 @@ import '../../../../consts/colors.dart';
 import '../../../../firebase/db.dart';
 import '../../../models/BookingModel.dart';
 import 'package:intl/intl.dart';
+import '../../../../firebase/db.dart';
 
 class NotificationView extends GetView<NotificationController> {
   const NotificationView({Key? key}) : super(key: key);
@@ -184,12 +185,14 @@ class NotificationView extends GetView<NotificationController> {
                                                             const EdgeInsets
                                                                 .only(top: 12),
                                                         child: ElevatedButton(
-                                                          onPressed: () => {
+                                                          onPressed: () async{
                                                             DatabaseService
                                                                 .addToMyBookingAndRemoveFromNotifications(
-                                                                    booking)
+                                                                    booking);
+                                                            String recDevId = await DatabaseService.getDeviceTokenFromUID(booking.employerId);
+                                                            controller.sendPushNotification(recDevId, "I will be able to work on the days you selected");
                                                           },
-                                                          child: Text("Confirm",
+                                                          child: Text("Accept",
                                                               style:
                                                                   mediumPrimaryBold),
                                                         ),
@@ -201,10 +204,25 @@ class NotificationView extends GetView<NotificationController> {
                                                             const EdgeInsets
                                                                 .only(top: 12),
                                                         child: ElevatedButton(
-                                                          onPressed: () => {
+                                                          onPressed: () async {
                                                             DatabaseService
                                                                 .removeFromNotifications(
-                                                                    booking)
+                                                                    booking);
+                                                            String recDevId =
+                                                                await DatabaseService
+                                                                    .getDeviceTokenFromUID(
+                                                                        booking
+                                                                            .employerId);
+                                                            debugPrint(booking
+                                                                .employerId);
+                                                            debugPrint(
+                                                                recDevId);
+                                                            controller
+                                                                .sendPushNotification(
+                                                                    recDevId,
+                                                                    "I'm sorry I will not be able to take that work");
+                                                            debugPrint(
+                                                                "PushNotificationToEmployerSuccessful");
                                                           },
                                                           child: Text("Reject",
                                                               style:

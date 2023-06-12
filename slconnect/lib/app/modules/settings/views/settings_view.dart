@@ -44,6 +44,7 @@ class SettingsView extends GetView<SettingsController> {
                   SharedPreferences prefs =
                       await SharedPreferences.getInstance();
                   prefs.remove('phone');
+                  prefs.clear();
                   Get.offAndToNamed(Routes.LOGIN);
                 },
                 child: const Text("Log Out")),

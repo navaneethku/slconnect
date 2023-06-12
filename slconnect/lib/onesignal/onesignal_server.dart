@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:slconnect/consts/api_keys.dart';
 
@@ -22,7 +23,6 @@ class OneSignalService {
     });
     _instance!
         .setNotificationOpenedHandler((OSNotificationOpenedResult result) {
-          
 // Will be called whenever a notification is opened/button pressed.
     });
     _instance!.setPermissionObserver((OSPermissionStateChanges changes) {
@@ -40,9 +40,11 @@ class OneSignalService {
     if (deviceState != null || deviceState?.userId != null) {
       String tokenId = deviceState!.userId!;
       print("TOKEN ID: $tokenId");
+      debugPrint("TOKEN ID got");
       saveToken(tokenId);
     }
   }
+
   void saveToken(String token) async {
     await FirebaseFirestore.instance
         .collection("UserTokens")

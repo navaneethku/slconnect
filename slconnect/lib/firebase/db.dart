@@ -167,8 +167,8 @@ class DatabaseService {
     docRef.delete();
     debugPrint("deleteSuccessfull");
   }
-  static Future removeFromNotifications(
-      BookingModel bookingModel) async {
+
+  static Future removeFromNotifications(BookingModel bookingModel) async {
     CollectionReference collectionRef =
         FirebaseFirestore.instance.collection("notifications");
     DocumentReference docRef = collectionRef.doc(bookingModel.id);
@@ -243,5 +243,16 @@ class DatabaseService {
         .collection('bookings')
         .doc(bookingId)
         .delete();
+  }
+
+  static Future<String> getDeviceTokenFromUID(String? uid) async {
+    DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
+        await FirebaseFirestore.instance
+            .collection('UserTokens')
+            .doc(uid)
+            .get();
+    String value = documentSnapshot.data()?['token']?.toString() ?? "";
+    debugPrint(value);
+    return value;
   }
 }

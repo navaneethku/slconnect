@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../consts/common_instances.dart';
@@ -21,7 +22,7 @@ class ProfileController extends GetxController {
     prefs.remove("laborer");
     super.onInit();
   }
-
+ 
 
 
   final employerFormKey = GlobalKey<FormState>();
