@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:slconnect/app/widgets/db.dart';
 import 'package:slconnect/consts/colors.dart';
 import 'firebase_options.dart';
 import 'package:get/get.dart';
@@ -10,6 +11,7 @@ import 'app/routes/app_pages.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await DB.init();
   OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
   OneSignal.shared.setAppId("05849719-1b2a-453c-a8d7-981308d70e22");
   OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {

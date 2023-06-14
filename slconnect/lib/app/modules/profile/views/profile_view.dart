@@ -72,7 +72,7 @@ class ProfileView extends GetView<ProfileController> {
                             const SizedBox(height: 10.0),
                             TextFormField(
                               controller: controller.ageController,
-                              keyboardType: TextInputType.text,
+                              keyboardType: TextInputType.number,
                               decoration: inputDecoration.copyWith(
                                   hintText: "Enter your Age"),
                               validator: (value) {

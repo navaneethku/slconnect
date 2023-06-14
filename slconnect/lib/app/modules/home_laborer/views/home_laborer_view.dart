@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:slconnect/app/widgets/BottomNavigation.dart';
+import 'package:slconnect/app/widgets/event_calendar.dart';
 import 'package:slconnect/consts/common_instances.dart';
 
 import '../../../../consts/colors.dart';
@@ -16,6 +17,7 @@ class HomeLaborerView extends GetView<HomeLaborerController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
           backgroundColor: secondary,
           title: const Text(
@@ -88,7 +90,11 @@ class HomeLaborerView extends GetView<HomeLaborerController> {
                 )
               ],
             ),
-          )
+          ),
+          Container(
+              margin: const EdgeInsets.all(20),
+              height: MediaQuery.of(context).size.height / 2,
+              child: const EventCalendarScreen()),
         ],
       )),
     );

@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../../../../onesignal/onesignal_server.dart';
+
 class HomeController extends GetxController {
   //TODO: Implement HomeController
   int selectedIndex = 0;
@@ -16,7 +18,7 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     print(skillsList);
-  
+  OneSignalService().getUserTokenId();
   }
 
 

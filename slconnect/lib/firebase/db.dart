@@ -78,7 +78,7 @@ class DatabaseService {
 
   Future<EmployerModel?> getEmployerById(String employerId) async {
     DocumentSnapshot<Map<String, dynamic>> snapshot =
-        await _db.collection('users').doc(currentUser!.uid).get();
+        await _db.collection('users').doc(employerId).get();
     if (snapshot.exists) {
       final Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
 

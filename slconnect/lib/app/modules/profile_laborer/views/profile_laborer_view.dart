@@ -108,7 +108,7 @@ class ProfileLaborerView extends GetView<ProfileLaborerController> {
                                                     controller: controller
                                                         .ageController,
                                                     keyboardType:
-                                                        TextInputType.text,
+                                                        TextInputType.number,
                                                     decoration: inputDecoration
                                                         .copyWith(
                                                             hintText:

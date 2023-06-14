@@ -14,7 +14,7 @@ class LandingController extends GetxController {
   void onInit() {
     super.onInit();
     // requestPermission();
-    OneSignalService().getUserTokenId();
+    
   }
 
 
