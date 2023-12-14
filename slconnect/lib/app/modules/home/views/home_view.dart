@@ -7,6 +7,7 @@ import 'package:slconnect/app/routes/app_pages.dart';
 import 'package:slconnect/app/widgets/BottomNavigation.dart';
 import 'package:slconnect/consts/colors.dart';
 import 'package:slconnect/consts/common_styles.dart';
+import '../../../widgets/event_calendar.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -99,7 +100,6 @@ class HomeView extends GetView<HomeController> {
                                 );
                               }),
                         ),
-                        
                       ],
                     ),
                   )),

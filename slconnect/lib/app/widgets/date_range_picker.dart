@@ -74,7 +74,7 @@ class _DateRangePickerWidgetState extends State<DateRangePickerWidget> {
                         width: 5,
                       ),
                       Text(
-                        DateFormat.yMMMMd().format(_startDate),
+                        DateFormat.yMMMd().format(_startDate),
                         style: const TextStyle(color: Colors.black, fontSize: 14),
                       ),
                     ],
@@ -110,7 +110,7 @@ class _DateRangePickerWidgetState extends State<DateRangePickerWidget> {
                         width: 5,
                       ),
                       Text(
-                        DateFormat.yMMMMd().format(_endDate),
+                        DateFormat.yMMMd().format(_endDate),
                         style: const TextStyle(color: Colors.black, fontSize: 14),
                       ),
                     ],

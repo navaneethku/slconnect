@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -98,6 +99,9 @@ class LoginView extends GetView<LoginController> {
                                 child: Form(
                               key: controller.loginFormKey,
                               child: TextFormField(
+                                maxLength: 10,
+                                maxLengthEnforcement:
+                                    MaxLengthEnforcement.enforced,
                                 validator: (value) {
                                   if (value == null ||
                                       value.isEmpty ||
@@ -111,6 +115,8 @@ class LoginView extends GetView<LoginController> {
                                 },
                                 keyboardType: TextInputType.phone,
                                 decoration: const InputDecoration(
+                                  errorMaxLines: 1,
+                                  counterText: '',
                                   border: InputBorder.none,
                                   hintText: "Phone",
                                 ),
@@ -132,7 +138,8 @@ class LoginView extends GetView<LoginController> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10))),
                           onPressed: () async {
-                            if (controller.loginFormKey.currentState!.validate()) {
+                            if (controller.loginFormKey.currentState!
+                                .validate()) {
                               controller.showOTPSnackBar();
                               await FirebaseAuth.instance.verifyPhoneNumber(
                                 phoneNumber: controller.countryController.text +
@@ -147,7 +154,8 @@ class LoginView extends GetView<LoginController> {
                                   SharedPreferences prefs =
                                       await SharedPreferences.getInstance();
                                   prefs.setString('phone', controller.phone);
-                                  Get.offAllNamed(Routes.OTP,arguments: controller.verifId);
+                                  Get.offAllNamed(Routes.OTP,
+                                      arguments: controller.verifId);
                                 },
                                 codeAutoRetrievalTimeout:
                                     (String verificationId) {},

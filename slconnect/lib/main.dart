@@ -4,6 +4,7 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:slconnect/app/widgets/db.dart';
 import 'package:slconnect/consts/colors.dart';
+import 'package:slconnect/consts/common_instances.dart';
 import 'firebase_options.dart';
 import 'package:get/get.dart';
 
@@ -11,15 +12,15 @@ import 'app/routes/app_pages.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await DB.init();
+  DB.init();
   OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
-  OneSignal.shared.setAppId("05849719-1b2a-453c-a8d7-981308d70e22");
+  OneSignal.shared.setAppId(oneSignalAppId);
   OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
-    print("Accepted permission: $accepted");
+    debugPrint("Accepted permission: $accepted");
   });
-  OneSignal.shared.setNotificationOpenedHandler((openedResult) {
-    Get.toNamed(Routes.NOTIFICATION);
-  });
+  OneSignal.shared.setNotificationOpenedHandler((OSNotificationOpenedResult result) {
+   Get.toNamed(Routes.NOTIFICATION);
+});
   SharedPreferences prefs = await SharedPreferences.getInstance();
   var phone = prefs.getString('phone');
   var laborer = prefs.getString('laborer');

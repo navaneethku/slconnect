@@ -10,7 +10,7 @@ class OneSignalService {
   OneSignalService() {
     getInstance();
     _instance!.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
-    _instance!.setAppId(oneSignalApiKey);
+    _instance!.setAppId(oneSignalAppId);
 // The promptForPushNotificationsWithUserResponse function will show the iOS push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
     _instance!.promptUserForPushNotificationPermission().then((accepted) {
       print("Accepted permission: $accepted");
@@ -36,12 +36,16 @@ class OneSignalService {
   }
 
   Future<void> getUserTokenId() async {
-    var deviceState = await _instance!.getDeviceState();
-    if (deviceState != null || deviceState?.userId != null) {
-      String tokenId = deviceState!.userId!;
-      print("TOKEN ID: $tokenId");
-      debugPrint("TOKEN ID got");
-      saveToken(tokenId);
+    try {
+      var deviceState = await _instance!.getDeviceState();
+      if (deviceState != null || deviceState?.userId != null) {
+        String tokenId = deviceState!.userId!;
+        print("TOKEN ID: $tokenId");
+        debugPrint("TOKEN ID got");
+        saveToken(tokenId);
+      }
+    } catch (e) {
+      debugPrint(e.toString());
     }
   }
 
